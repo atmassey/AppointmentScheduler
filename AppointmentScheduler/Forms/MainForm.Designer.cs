@@ -100,6 +100,7 @@
             this.CloseBtn.TabIndex = 6;
             this.CloseBtn.Text = "Close";
             this.CloseBtn.UseVisualStyleBackColor = true;
+            this.CloseBtn.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // notifyIcon1
             // 
