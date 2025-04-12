@@ -30,6 +30,9 @@
         {
             this.LocationLabel = new System.Windows.Forms.Label();
             this.Location = new System.Windows.Forms.Label();
+            this.LoginUsername = new System.Windows.Forms.TextBox();
+            this.LoginPassword = new System.Windows.Forms.TextBox();
+            this.LoginBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LocationLabel
@@ -50,11 +53,39 @@
             this.Location.TabIndex = 1;
             this.Location.Text = " ";
             // 
+            // LoginUsername
+            // 
+            this.LoginUsername.Location = new System.Drawing.Point(174, 97);
+            this.LoginUsername.Name = "LoginUsername";
+            this.LoginUsername.Size = new System.Drawing.Size(215, 20);
+            this.LoginUsername.TabIndex = 2;
+            // 
+            // LoginPassword
+            // 
+            this.LoginPassword.Location = new System.Drawing.Point(174, 160);
+            this.LoginPassword.Name = "LoginPassword";
+            this.LoginPassword.PasswordChar = '*';
+            this.LoginPassword.Size = new System.Drawing.Size(215, 20);
+            this.LoginPassword.TabIndex = 3;
+            // 
+            // LoginBtn
+            // 
+            this.LoginBtn.Location = new System.Drawing.Point(174, 220);
+            this.LoginBtn.Name = "LoginBtn";
+            this.LoginBtn.Size = new System.Drawing.Size(215, 23);
+            this.LoginBtn.TabIndex = 4;
+            this.LoginBtn.Text = "Login";
+            this.LoginBtn.UseVisualStyleBackColor = true;
+            this.LoginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(615, 347);
+            this.Controls.Add(this.LoginBtn);
+            this.Controls.Add(this.LoginPassword);
+            this.Controls.Add(this.LoginUsername);
             this.Controls.Add(this.Location);
             this.Controls.Add(this.LocationLabel);
             this.Name = "Login";
@@ -69,5 +100,8 @@
 
         private System.Windows.Forms.Label LocationLabel;
         private System.Windows.Forms.Label Location;
+        private System.Windows.Forms.TextBox LoginUsername;
+        private System.Windows.Forms.TextBox LoginPassword;
+        private System.Windows.Forms.Button LoginBtn;
     }
 }
