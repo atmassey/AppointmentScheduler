@@ -39,22 +39,39 @@ namespace AppointmentScheduler.Globals
         }
         public bool Login(string username, string password)
         {
-            MySqlConnection conn = getConnection();
-            MySqlCommand cmd = newQuery(conn, LoginQuery);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@password", password);
-            conn.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            MySqlConnection conn = null;
+            try
             {
-                string userName = reader["userName"].ToString();
-                string passWord = reader["password"].ToString();
-                if (userName == username && passWord == password)
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, LoginQuery);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                conn.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    return true;
+                    string userName = reader["userName"].ToString();
+                    string passWord = reader["password"].ToString();
+                    if (userName == username && passWord == password)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
                 }
             }
-            return false;
         }
     }
 }
