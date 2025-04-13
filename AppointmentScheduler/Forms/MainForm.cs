@@ -27,5 +27,9 @@ namespace AppointmentScheduler
             login.Show();
             this.Hide();
         }
+        private void MainForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
