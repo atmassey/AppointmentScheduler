@@ -35,6 +35,7 @@
             this.LoginBtn = new System.Windows.Forms.Button();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.PasswordLabel = new System.Windows.Forms.Label();
+            this.TitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LocationLabel
@@ -57,14 +58,14 @@
             // 
             // LoginUsername
             // 
-            this.LoginUsername.Location = new System.Drawing.Point(174, 97);
+            this.LoginUsername.Location = new System.Drawing.Point(182, 139);
             this.LoginUsername.Name = "LoginUsername";
             this.LoginUsername.Size = new System.Drawing.Size(215, 20);
             this.LoginUsername.TabIndex = 2;
             // 
             // LoginPassword
             // 
-            this.LoginPassword.Location = new System.Drawing.Point(174, 160);
+            this.LoginPassword.Location = new System.Drawing.Point(182, 202);
             this.LoginPassword.Name = "LoginPassword";
             this.LoginPassword.PasswordChar = '*';
             this.LoginPassword.Size = new System.Drawing.Size(215, 20);
@@ -72,7 +73,7 @@
             // 
             // LoginBtn
             // 
-            this.LoginBtn.Location = new System.Drawing.Point(174, 220);
+            this.LoginBtn.Location = new System.Drawing.Point(182, 262);
             this.LoginBtn.Name = "LoginBtn";
             this.LoginBtn.Size = new System.Drawing.Size(215, 23);
             this.LoginBtn.TabIndex = 4;
@@ -83,7 +84,7 @@
             // UsernameLabel
             // 
             this.UsernameLabel.AutoSize = true;
-            this.UsernameLabel.Location = new System.Drawing.Point(174, 65);
+            this.UsernameLabel.Location = new System.Drawing.Point(182, 107);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(55, 13);
             this.UsernameLabel.TabIndex = 5;
@@ -92,17 +93,28 @@
             // PasswordLabel
             // 
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(177, 141);
+            this.PasswordLabel.Location = new System.Drawing.Point(182, 183);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(53, 13);
             this.PasswordLabel.TabIndex = 6;
             this.PasswordLabel.Text = "Password";
+            // 
+            // TitleLabel
+            // 
+            this.TitleLabel.AutoSize = true;
+            this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLabel.Location = new System.Drawing.Point(159, 44);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(261, 24);
+            this.TitleLabel.TabIndex = 7;
+            this.TitleLabel.Text = "Appointment Scheduler Login";
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 347);
+            this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.UsernameLabel);
             this.Controls.Add(this.LoginBtn);
@@ -112,6 +124,7 @@
             this.Controls.Add(this.LocationLabel);
             this.Name = "Login";
             this.Text = "Login";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Login_FormClosed);
             this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -127,5 +140,6 @@
         private System.Windows.Forms.Button LoginBtn;
         private System.Windows.Forms.Label UsernameLabel;
         private System.Windows.Forms.Label PasswordLabel;
+        private System.Windows.Forms.Label TitleLabel;
     }
 }

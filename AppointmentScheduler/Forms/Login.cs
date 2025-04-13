@@ -44,5 +44,9 @@ namespace AppointmentScheduler.Forms
             main.Show();
             this.Hide();
         }
+        private void Login_FormClosed(object sender, FormClosedEventArgs e)
+        {
+                Application.Exit();
+        }
     }
 }

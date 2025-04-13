@@ -16,5 +16,9 @@ namespace AppointmentScheduler.Forms
         {
             InitializeComponent();
         }
+        private void DismissBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
