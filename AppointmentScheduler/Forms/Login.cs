@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AppointmentScheduler.Globals;
+using MySql.Data.MySqlClient;
 
 namespace AppointmentScheduler.Forms
 {
@@ -29,11 +31,27 @@ namespace AppointmentScheduler.Forms
             string password = LoginPassword.Text;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Please enter both username and password.");
+                MessageBox.Show("Please enter a username and password.");
                 return;
             }
-            // Simulate a successful login
-            MessageBox.Show("Login successful!");
+            Database db = new Database();
+            MySqlConnection conn = db.getConnection();
+
+            string query = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";
+            MySqlCommand cmd = db.newQuery(conn, query);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@password", password);
+            conn.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read()) {
+                string userName = reader["userName"].ToString();
+                string passWord = reader["password"].ToString();
+                if (userName == username && passWord == password)
+                {
+                    Console.WriteLine("Login successful.");
+                    break;
+                }
+            }
             MainForm main = new MainForm();
             main.Show();
             this.Hide();

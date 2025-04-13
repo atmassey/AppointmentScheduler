@@ -12,7 +12,7 @@ namespace AppointmentScheduler.Globals
     {
         public static string Server = "127.0.0.1";
         public static int Port = 3306;
-        public static string DatabaseName = "client_scheduler";
+        public static string DatabaseName = "client_schedule";
         public static string Username = "sqlUser";
         public static string Password = "Passw0rd!";
 

@@ -33,6 +33,8 @@
             this.LoginUsername = new System.Windows.Forms.TextBox();
             this.LoginPassword = new System.Windows.Forms.TextBox();
             this.LoginBtn = new System.Windows.Forms.Button();
+            this.UsernameLabel = new System.Windows.Forms.Label();
+            this.PasswordLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LocationLabel
@@ -78,11 +80,31 @@
             this.LoginBtn.UseVisualStyleBackColor = true;
             this.LoginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
+            // UsernameLabel
+            // 
+            this.UsernameLabel.AutoSize = true;
+            this.UsernameLabel.Location = new System.Drawing.Point(174, 65);
+            this.UsernameLabel.Name = "UsernameLabel";
+            this.UsernameLabel.Size = new System.Drawing.Size(55, 13);
+            this.UsernameLabel.TabIndex = 5;
+            this.UsernameLabel.Text = "Username";
+            // 
+            // PasswordLabel
+            // 
+            this.PasswordLabel.AutoSize = true;
+            this.PasswordLabel.Location = new System.Drawing.Point(177, 141);
+            this.PasswordLabel.Name = "PasswordLabel";
+            this.PasswordLabel.Size = new System.Drawing.Size(53, 13);
+            this.PasswordLabel.TabIndex = 6;
+            this.PasswordLabel.Text = "Password";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 347);
+            this.Controls.Add(this.PasswordLabel);
+            this.Controls.Add(this.UsernameLabel);
             this.Controls.Add(this.LoginBtn);
             this.Controls.Add(this.LoginPassword);
             this.Controls.Add(this.LoginUsername);
@@ -103,5 +125,7 @@
         private System.Windows.Forms.TextBox LoginUsername;
         private System.Windows.Forms.TextBox LoginPassword;
         private System.Windows.Forms.Button LoginBtn;
+        private System.Windows.Forms.Label UsernameLabel;
+        private System.Windows.Forms.Label PasswordLabel;
     }
 }
