@@ -16,6 +16,9 @@ namespace AppointmentScheduler.Globals
         public static string Username = "sqlUser";
         public static string Password = "Passw0rd!";
 
+        // Query strings
+        public const string LoginQuery = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";
+
         public static string ConnectionString
         {
             get
@@ -33,6 +36,25 @@ namespace AppointmentScheduler.Globals
         {
             MySqlCommand cmd = new MySqlCommand(query, conn);
             return cmd;
+        }
+        public bool Login(string username, string password)
+        {
+            MySqlConnection conn = getConnection();
+            MySqlCommand cmd = newQuery(conn, LoginQuery);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@password", password);
+            conn.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string userName = reader["userName"].ToString();
+                string passWord = reader["password"].ToString();
+                if (userName == username && passWord == password)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

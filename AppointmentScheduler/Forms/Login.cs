@@ -35,22 +35,11 @@ namespace AppointmentScheduler.Forms
                 return;
             }
             Database db = new Database();
-            MySqlConnection conn = db.getConnection();
-
-            string query = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";
-            MySqlCommand cmd = db.newQuery(conn, query);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@password", password);
-            conn.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read()) {
-                string userName = reader["userName"].ToString();
-                string passWord = reader["password"].ToString();
-                if (userName == username && passWord == password)
-                {
-                    Console.WriteLine("Login successful.");
-                    break;
-                }
+            var result = db.Login(username, password);
+            if (!result)
+            {
+                MessageBox.Show("Invalid username or password.");
+                return;
             }
             MainForm main = new MainForm();
             main.Show();
