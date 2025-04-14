@@ -125,7 +125,7 @@
             // 
             // Name
             // 
-            this.Name.Location = new System.Drawing.Point(15, 78);
+            this.Name.Location = new System.Drawing.Point(12, 63);
             this.Name.Name = "Name";
             this.Name.Size = new System.Drawing.Size(281, 20);
             this.Name.TabIndex = 3;
@@ -133,7 +133,7 @@
             // NameLabel
             // 
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(15, 62);
+            this.NameLabel.Location = new System.Drawing.Point(12, 47);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(35, 13);
             this.NameLabel.TabIndex = 4;
@@ -142,7 +142,7 @@
             // AddressLabel
             // 
             this.AddressLabel.AutoSize = true;
-            this.AddressLabel.Location = new System.Drawing.Point(15, 113);
+            this.AddressLabel.Location = new System.Drawing.Point(12, 98);
             this.AddressLabel.Name = "AddressLabel";
             this.AddressLabel.Size = new System.Drawing.Size(45, 13);
             this.AddressLabel.TabIndex = 6;
@@ -150,7 +150,7 @@
             // 
             // Address
             // 
-            this.Address.Location = new System.Drawing.Point(15, 129);
+            this.Address.Location = new System.Drawing.Point(12, 114);
             this.Address.Name = "Address";
             this.Address.Size = new System.Drawing.Size(281, 20);
             this.Address.TabIndex = 5;
@@ -158,7 +158,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 162);
+            this.label2.Location = new System.Drawing.Point(12, 147);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 8;
@@ -166,7 +166,7 @@
             // 
             // AddressTwo
             // 
-            this.AddressTwo.Location = new System.Drawing.Point(15, 178);
+            this.AddressTwo.Location = new System.Drawing.Point(12, 163);
             this.AddressTwo.Name = "AddressTwo";
             this.AddressTwo.Size = new System.Drawing.Size(281, 20);
             this.AddressTwo.TabIndex = 7;
@@ -174,7 +174,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 212);
+            this.label3.Location = new System.Drawing.Point(12, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(24, 13);
             this.label3.TabIndex = 10;
@@ -182,7 +182,7 @@
             // 
             // City
             // 
-            this.City.Location = new System.Drawing.Point(15, 228);
+            this.City.Location = new System.Drawing.Point(12, 213);
             this.City.Name = "City";
             this.City.Size = new System.Drawing.Size(281, 20);
             this.City.TabIndex = 9;
@@ -190,7 +190,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 260);
+            this.label4.Location = new System.Drawing.Point(12, 245);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 12;
@@ -198,7 +198,7 @@
             // 
             // Country
             // 
-            this.Country.Location = new System.Drawing.Point(15, 276);
+            this.Country.Location = new System.Drawing.Point(12, 261);
             this.Country.Name = "Country";
             this.Country.Size = new System.Drawing.Size(281, 20);
             this.Country.TabIndex = 11;
@@ -206,7 +206,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 312);
+            this.label1.Location = new System.Drawing.Point(12, 297);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 14;
@@ -214,7 +214,7 @@
             // 
             // PostalCode
             // 
-            this.PostalCode.Location = new System.Drawing.Point(15, 328);
+            this.PostalCode.Location = new System.Drawing.Point(12, 313);
             this.PostalCode.Name = "PostalCode";
             this.PostalCode.Size = new System.Drawing.Size(281, 20);
             this.PostalCode.TabIndex = 13;
@@ -222,7 +222,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 359);
+            this.label5.Location = new System.Drawing.Point(12, 344);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 16;
@@ -230,14 +230,14 @@
             // 
             // Phone
             // 
-            this.Phone.Location = new System.Drawing.Point(15, 375);
+            this.Phone.Location = new System.Drawing.Point(12, 360);
             this.Phone.Name = "Phone";
             this.Phone.Size = new System.Drawing.Size(281, 20);
             this.Phone.TabIndex = 15;
             // 
             // AddBtn
             // 
-            this.AddBtn.Location = new System.Drawing.Point(119, 444);
+            this.AddBtn.Location = new System.Drawing.Point(116, 429);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(75, 23);
             this.AddBtn.TabIndex = 17;
@@ -246,7 +246,7 @@
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(18, 444);
+            this.SaveBtn.Location = new System.Drawing.Point(15, 429);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 18;
@@ -255,7 +255,7 @@
             // 
             // DeleteBtn
             // 
-            this.DeleteBtn.Location = new System.Drawing.Point(220, 444);
+            this.DeleteBtn.Location = new System.Drawing.Point(217, 429);
             this.DeleteBtn.Name = "DeleteBtn";
             this.DeleteBtn.Size = new System.Drawing.Size(75, 23);
             this.DeleteBtn.TabIndex = 19;
@@ -265,7 +265,7 @@
             // Active
             // 
             this.Active.AutoSize = true;
-            this.Active.Location = new System.Drawing.Point(18, 411);
+            this.Active.Location = new System.Drawing.Point(15, 396);
             this.Active.Name = "Active";
             this.Active.Size = new System.Drawing.Size(56, 17);
             this.Active.TabIndex = 20;
