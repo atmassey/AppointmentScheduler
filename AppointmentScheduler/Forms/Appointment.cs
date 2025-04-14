@@ -16,5 +16,33 @@ namespace AppointmentScheduler.Forms
         {
             InitializeComponent();
         }
+        private void customerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Customer customerForm = new Customer();
+            customerForm.Show();
+        }
+        private void mainToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Main mainForm = new Main();
+            mainForm.Show();
+        }
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Reports reportForm = new Reports();
+            reportForm.Show();
+        }
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login loginForm = new Login();
+            loginForm.Show();
+        }
+        private void Appointment_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

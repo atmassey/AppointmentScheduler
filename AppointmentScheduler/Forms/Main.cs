@@ -11,9 +11,9 @@ using AppointmentScheduler.Forms;
 
 namespace AppointmentScheduler
 {
-    public partial class MainForm : Form
+    public partial class Main : Form
     {
-        public MainForm()
+        public Main()
         {
             InitializeComponent();
         }

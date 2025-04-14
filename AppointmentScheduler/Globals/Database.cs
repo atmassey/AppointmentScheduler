@@ -15,6 +15,7 @@ namespace AppointmentScheduler.Globals
         public static string DatabaseName = "client_schedule";
         public static string Username = "sqlUser";
         public static string Password = "Passw0rd!";
+        public static string CurrentUser {get; set; } = "";
 
         // Query strings
         public const string LoginQuery = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";

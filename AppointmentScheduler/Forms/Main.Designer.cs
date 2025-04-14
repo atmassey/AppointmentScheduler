@@ -1,6 +1,6 @@
 ﻿namespace AppointmentScheduler
 {
-    partial class MainForm
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -76,7 +76,7 @@
             // MonthlyRadio
             // 
             this.MonthlyRadio.AutoSize = true;
-            this.MonthlyRadio.Location = new System.Drawing.Point(104, 209);
+            this.MonthlyRadio.Location = new System.Drawing.Point(177, 208);
             this.MonthlyRadio.Name = "MonthlyRadio";
             this.MonthlyRadio.Size = new System.Drawing.Size(62, 17);
             this.MonthlyRadio.TabIndex = 9;
@@ -125,7 +125,7 @@
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
-            // MainForm
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -136,7 +136,7 @@
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
+            this.Name = "Main";
             this.Text = "Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_Closed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

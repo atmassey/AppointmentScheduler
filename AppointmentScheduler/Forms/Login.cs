@@ -40,7 +40,8 @@ namespace AppointmentScheduler.Forms
                 MessageBox.Show("Invalid username or password.");
                 return;
             }
-            MainForm main = new MainForm();
+            Database.CurrentUser = username;
+            Main main = new Main();
             main.Show();
             this.Hide();
         }
