@@ -17,19 +17,15 @@ namespace AppointmentScheduler
         {
             InitializeComponent();
         }
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-        private void LogoutButton_Click(object sender, EventArgs e)
-        {
-            Login login = new Login();
-            login.Show();
-            this.Hide();
-        }
         private void MainForm_Closed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login loginForm = new Login();
+            loginForm.Show();
         }
     }
 }

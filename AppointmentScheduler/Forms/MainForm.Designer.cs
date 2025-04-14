@@ -29,79 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.AddBtn = new System.Windows.Forms.Button();
-            this.DeleteBtn = new System.Windows.Forms.Button();
-            this.ModifyBtn = new System.Windows.Forms.Button();
-            this.ReportsBtn = new System.Windows.Forms.Button();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.LogoutBtn = new System.Windows.Forms.Button();
-            this.CloseBtn = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DailyRadio = new System.Windows.Forms.RadioButton();
+            this.MonthlyRadio = new System.Windows.Forms.RadioButton();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.appointmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // AddBtn
-            // 
-            this.AddBtn.Location = new System.Drawing.Point(18, 192);
-            this.AddBtn.Name = "AddBtn";
-            this.AddBtn.Size = new System.Drawing.Size(227, 23);
-            this.AddBtn.TabIndex = 0;
-            this.AddBtn.Text = "Add Appointment";
-            this.AddBtn.UseVisualStyleBackColor = true;
-            // 
-            // DeleteBtn
-            // 
-            this.DeleteBtn.Location = new System.Drawing.Point(18, 221);
-            this.DeleteBtn.Name = "DeleteBtn";
-            this.DeleteBtn.Size = new System.Drawing.Size(227, 23);
-            this.DeleteBtn.TabIndex = 1;
-            this.DeleteBtn.Text = "Delete Appointment";
-            this.DeleteBtn.UseVisualStyleBackColor = true;
-            // 
-            // ModifyBtn
-            // 
-            this.ModifyBtn.Location = new System.Drawing.Point(18, 250);
-            this.ModifyBtn.Name = "ModifyBtn";
-            this.ModifyBtn.Size = new System.Drawing.Size(227, 23);
-            this.ModifyBtn.TabIndex = 2;
-            this.ModifyBtn.Text = "Modify Appointment";
-            this.ModifyBtn.UseVisualStyleBackColor = true;
-            // 
-            // ReportsBtn
-            // 
-            this.ReportsBtn.Location = new System.Drawing.Point(18, 279);
-            this.ReportsBtn.Name = "ReportsBtn";
-            this.ReportsBtn.Size = new System.Drawing.Size(227, 23);
-            this.ReportsBtn.TabIndex = 3;
-            this.ReportsBtn.Text = "Reports";
-            this.ReportsBtn.UseVisualStyleBackColor = true;
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(18, 18);
+            this.monthCalendar1.Location = new System.Drawing.Point(12, 34);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 4;
-            // 
-            // LogoutBtn
-            // 
-            this.LogoutBtn.Location = new System.Drawing.Point(12, 576);
-            this.LogoutBtn.Name = "LogoutBtn";
-            this.LogoutBtn.Size = new System.Drawing.Size(113, 23);
-            this.LogoutBtn.TabIndex = 5;
-            this.LogoutBtn.Text = "Log Out";
-            this.LogoutBtn.UseVisualStyleBackColor = true;
-            this.LogoutBtn.Click += new System.EventHandler(this.LogoutButton_Click);
-            // 
-            // CloseBtn
-            // 
-            this.CloseBtn.Location = new System.Drawing.Point(12, 605);
-            this.CloseBtn.Name = "CloseBtn";
-            this.CloseBtn.Size = new System.Drawing.Size(113, 23);
-            this.CloseBtn.TabIndex = 6;
-            this.CloseBtn.Text = "Close";
-            this.CloseBtn.UseVisualStyleBackColor = true;
-            this.CloseBtn.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // notifyIcon1
             // 
@@ -111,43 +57,104 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(257, 18);
+            this.dataGridView1.Location = new System.Drawing.Point(257, 34);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(786, 606);
             this.dataGridView1.TabIndex = 7;
+            // 
+            // DailyRadio
+            // 
+            this.DailyRadio.AutoSize = true;
+            this.DailyRadio.Location = new System.Drawing.Point(12, 208);
+            this.DailyRadio.Name = "DailyRadio";
+            this.DailyRadio.Size = new System.Drawing.Size(48, 17);
+            this.DailyRadio.TabIndex = 8;
+            this.DailyRadio.TabStop = true;
+            this.DailyRadio.Text = "Daily";
+            this.DailyRadio.UseVisualStyleBackColor = true;
+            // 
+            // MonthlyRadio
+            // 
+            this.MonthlyRadio.AutoSize = true;
+            this.MonthlyRadio.Location = new System.Drawing.Point(104, 209);
+            this.MonthlyRadio.Name = "MonthlyRadio";
+            this.MonthlyRadio.Size = new System.Drawing.Size(62, 17);
+            this.MonthlyRadio.TabIndex = 9;
+            this.MonthlyRadio.TabStop = true;
+            this.MonthlyRadio.Text = "Monthly";
+            this.MonthlyRadio.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.appointmentsToolStripMenuItem,
+            this.customersToolStripMenuItem,
+            this.reportsToolStripMenuItem,
+            this.logoutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1055, 24);
+            this.menuStrip1.TabIndex = 10;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // appointmentsToolStripMenuItem
+            // 
+            this.appointmentsToolStripMenuItem.Name = "appointmentsToolStripMenuItem";
+            this.appointmentsToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.appointmentsToolStripMenuItem.Text = "Appointments";
+            // 
+            // customersToolStripMenuItem
+            // 
+            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.customersToolStripMenuItem.Text = "Customers";
+            // 
+            // reportsToolStripMenuItem
+            // 
+            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.reportsToolStripMenuItem.Text = "Reports";
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.logoutToolStripMenuItem.Text = "Logout";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 636);
+            this.ClientSize = new System.Drawing.Size(1055, 652);
+            this.Controls.Add(this.MonthlyRadio);
+            this.Controls.Add(this.DailyRadio);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.CloseBtn);
-            this.Controls.Add(this.LogoutBtn);
             this.Controls.Add(this.monthCalendar1);
-            this.Controls.Add(this.ReportsBtn);
-            this.Controls.Add(this.ModifyBtn);
-            this.Controls.Add(this.DeleteBtn);
-            this.Controls.Add(this.AddBtn);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_Closed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button AddBtn;
-        private System.Windows.Forms.Button DeleteBtn;
-        private System.Windows.Forms.Button ModifyBtn;
-        private System.Windows.Forms.Button ReportsBtn;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
-        private System.Windows.Forms.Button LogoutBtn;
-        private System.Windows.Forms.Button CloseBtn;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.RadioButton DailyRadio;
+        private System.Windows.Forms.RadioButton MonthlyRadio;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem appointmentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
     }
 }
 
