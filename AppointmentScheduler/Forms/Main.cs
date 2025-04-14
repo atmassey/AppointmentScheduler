@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppointmentScheduler.Forms;
+using AppointmentScheduler.Globals;
 
 namespace AppointmentScheduler
 {
@@ -16,6 +17,11 @@ namespace AppointmentScheduler
         public Main()
         {
             InitializeComponent();
+        }
+        private void Main_Load(object sender, EventArgs e)
+        {
+            // Set the current date and time in the status strip
+            CurrentUser.Text = "Current User: " + Database.CurrentUser;
         }
         private void MainForm_Closed(object sender, FormClosedEventArgs e)
         {

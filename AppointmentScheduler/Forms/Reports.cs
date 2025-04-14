@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AppointmentScheduler.Globals;
 
 namespace AppointmentScheduler.Forms
 {
@@ -43,6 +44,10 @@ namespace AppointmentScheduler.Forms
         private void Reports_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+        private void Reports_Load(object sender, EventArgs e)
+        {
+            CurrentUser.Text = "Current User: " + Database.CurrentUser;
         }
     }
 }
