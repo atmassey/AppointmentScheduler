@@ -35,7 +35,7 @@
             this.logooutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.CurrentUser = new System.Windows.Forms.ToolStripStatusLabel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.CustomerGrid = new System.Windows.Forms.DataGridView();
             this.Name = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.AddressLabel = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.Active = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomerGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -115,13 +115,13 @@
             this.CurrentUser.Name = "CurrentUser";
             this.CurrentUser.Size = new System.Drawing.Size(0, 17);
             // 
-            // dataGridView1
+            // CustomerGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(313, 44);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(709, 558);
-            this.dataGridView1.TabIndex = 2;
+            this.CustomerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CustomerGrid.Location = new System.Drawing.Point(313, 44);
+            this.CustomerGrid.Name = "CustomerGrid";
+            this.CustomerGrid.Size = new System.Drawing.Size(709, 558);
+            this.CustomerGrid.TabIndex = 2;
             // 
             // Name
             // 
@@ -295,7 +295,7 @@
             this.Controls.Add(this.Address);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.Name);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.CustomerGrid);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -307,7 +307,7 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomerGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,7 +322,7 @@
         private System.Windows.Forms.ToolStripMenuItem logooutToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel CurrentUser;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView CustomerGrid;
         private System.Windows.Forms.TextBox Name;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label AddressLabel;

@@ -49,5 +49,6 @@ namespace AppointmentScheduler.Forms
         {
             CurrentUser.Text = "Current User: " + Database.CurrentUser;
         }
+
     }
 }
