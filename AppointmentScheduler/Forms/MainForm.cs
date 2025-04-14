@@ -27,5 +27,23 @@ namespace AppointmentScheduler
             Login loginForm = new Login();
             loginForm.Show();
         }
+        private void appointmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Appointment appointmentForm = new Appointment();
+            appointmentForm.Show();
+        }
+        private void customerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Customer customerForm = new Customer();
+            customerForm.Show();
+        }
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Reports reportForm = new Reports();
+            reportForm.Show();
+        }
     }
 }
