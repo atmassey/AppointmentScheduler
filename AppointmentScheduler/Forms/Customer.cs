@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppointmentScheduler.Globals;
+using MySql.Data.MySqlClient;
 
 namespace AppointmentScheduler.Forms
 {
@@ -104,6 +105,30 @@ namespace AppointmentScheduler.Forms
             Active.Checked = false;
             // Clear the DataGridView selection
             CustomerGrid.ClearSelection();
+        }
+        private void Save_Click(object sender, EventArgs e)
+        {
+            // Get the selected customer ID
+            int customerId = Convert.ToInt32(CustomerGrid.SelectedRows[0].Cells["customerId"].Value);
+            // Get the updated customer details from the form fields
+            List<MySqlParameter> parameters = new List<MySqlParameter>
+            {
+                new MySqlParameter("@customerId", customerId),
+                new MySqlParameter("@customerName", Name.Text),
+                new MySqlParameter("@active", Active.Checked),
+                new MySqlParameter("@phone", Phone.Text),
+                new MySqlParameter("@address", Address.Text),
+                new MySqlParameter("@address2", AddressTwo.Text),
+                new MySqlParameter("@postalCode", PostalCode.Text),
+                new MySqlParameter("@city", City.Text),
+                new MySqlParameter("@country", Country.Text)
+            };
+            // Update the customer in the database
+            Database db = new Database();
+            db.UpdateCustomer(customerId, parameters);
+            // Refresh the DataGridView
+            DataTable customerData = db.GetAllCustomers();
+            CustomerGrid.DataSource = customerData;
         }
     }
 }

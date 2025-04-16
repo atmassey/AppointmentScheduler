@@ -5,7 +5,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AppointmentScheduler.Models;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 
 namespace AppointmentScheduler.Globals
 {
@@ -20,12 +22,28 @@ namespace AppointmentScheduler.Globals
 
         // Query strings
         private const string LoginQuery = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";
-
+        // Query to get all customers
         private const string AllCustomerQuery = 
             @"SELECT c.customerId, c.customerName, a.phone, a.address, a.address2, a.postalCode, ci.city, co.country, c.active FROM customer c
             JOIN address a ON c.addressId = a.addressId
             JOIN city ci ON ci.cityId = a.cityId
             JOIN country co ON co.countryId = ci.countryId";
+        // Query to update customer by customerId
+        private const string UpdateCustomerQuery =
+           @"UPDATE customer c
+            JOIN address a ON c.addressId = a.addressId
+                JOIN city ci ON ci.cityId = a.cityId
+            JOIN country co ON co.countryId = ci.countryId
+            SET
+                c.customerName = @customerName,
+                c.active = @active,
+                a.phone = @phone,
+                a.address = @address,
+                a.address2 = @address2,
+                a.postalCode = @postalCode,
+                ci.city = @city,
+                co.country = @country
+            WHERE c.customerId = @customerId";
 
         public static string ConnectionString
         {
@@ -109,6 +127,31 @@ namespace AppointmentScheduler.Globals
             {
                 Console.WriteLine("Error: " + ex.Message);
                 return null;
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public bool UpdateCustomer(int customerId, List<MySqlParameter> parameters)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, UpdateCustomerQuery, parameters);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
             }
             finally
             {
