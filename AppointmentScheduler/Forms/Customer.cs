@@ -57,11 +57,10 @@ namespace AppointmentScheduler.Forms
             CustomerGrid.DataSource = customerData;
             // Set the DataGridView to read-only
             CustomerGrid.ReadOnly = true;
-            // Populate form fiels with the first customer details
-            if (CustomerGrid.SelectedRows.Count > 0)
+            if (CustomerGrid.Rows.Count > 0)
             {
+                // Load the customer details into the form fields
                 LoadCustomerDetails();
-                Console.WriteLine("Selected row: " + CustomerGrid.SelectedRows[0].Cells["customerName"].Value.ToString());
             }
         }
         private void LoadCustomerDetails()
@@ -91,6 +90,20 @@ namespace AppointmentScheduler.Forms
                 // Load the customer details into the form fields
                 LoadCustomerDetails();
             }
+        }
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            // Clear the form fields
+            Name.Text = "";
+            Address.Text = "";
+            AddressTwo.Text = "";
+            PostalCode.Text = "";
+            City.Text = "";
+            Country.Text = "";
+            Phone.Text = "";
+            Active.Checked = false;
+            // Clear the DataGridView selection
+            CustomerGrid.ClearSelection();
         }
     }
 }
