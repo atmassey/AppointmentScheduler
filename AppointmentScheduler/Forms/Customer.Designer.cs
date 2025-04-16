@@ -126,6 +126,7 @@
             this.CustomerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CustomerGrid.Size = new System.Drawing.Size(709, 558);
             this.CustomerGrid.TabIndex = 2;
+            this.CustomerGrid.SelectionChanged += new System.EventHandler(this.CustomerGrid_SelectionChanged);
             // 
             // Name
             // 

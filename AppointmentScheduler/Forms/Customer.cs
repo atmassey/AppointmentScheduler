@@ -57,6 +57,40 @@ namespace AppointmentScheduler.Forms
             CustomerGrid.DataSource = customerData;
             // Set the DataGridView to read-only
             CustomerGrid.ReadOnly = true;
+            // Populate form fiels with the first customer details
+            if (CustomerGrid.SelectedRows.Count > 0)
+            {
+                LoadCustomerDetails();
+                Console.WriteLine("Selected row: " + CustomerGrid.SelectedRows[0].Cells["customerName"].Value.ToString());
+            }
+        }
+        private void LoadCustomerDetails()
+        {
+            Name.Text = CustomerGrid.SelectedRows[0].Cells["customerName"].Value.ToString();
+            Address.Text = CustomerGrid.SelectedRows[0].Cells["address"].Value.ToString();
+            AddressTwo.Text = CustomerGrid.SelectedRows[0].Cells["address2"].Value.ToString();
+            PostalCode.Text = CustomerGrid.SelectedRows[0].Cells["postalCode"].Value.ToString();
+            City.Text = CustomerGrid.SelectedRows[0].Cells["city"].Value.ToString();
+            Country.Text = CustomerGrid.SelectedRows[0].Cells["country"].Value.ToString();
+            Phone.Text = CustomerGrid.SelectedRows[0].Cells["phone"].Value.ToString();
+            string ActiveString = CustomerGrid.SelectedRows[0].Cells["active"].Value.ToString();
+            if (ActiveString == "True")
+            {
+                Active.Checked = true;
+            }
+            else
+            {
+                Active.Checked = false;
+            }
+        }
+        private void CustomerGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            // Check if the row is selected
+            if (CustomerGrid.SelectedRows.Count > 0)
+            {
+                // Load the customer details into the form fields
+                LoadCustomerDetails();
+            }
         }
     }
 }
