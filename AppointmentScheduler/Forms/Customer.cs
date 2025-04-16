@@ -48,6 +48,14 @@ namespace AppointmentScheduler.Forms
         private void Customer_Load(object sender, EventArgs e)
         {
             CurrentUser.Text = "Current User: " + Database.CurrentUser;
+            // Load customer data into the DataGridView
+            Database db = new Database();
+            // Get the data from the database
+            DataTable customerData = db.GetAllCustomers();
+            // Bind the data to the DataGridView
+            CustomerGrid.DataSource = customerData;
+            // Set the DataGridView to read-only
+            CustomerGrid.ReadOnly = true;
         }
     }
 }
