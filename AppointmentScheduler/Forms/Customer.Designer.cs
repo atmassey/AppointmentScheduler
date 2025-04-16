@@ -118,8 +118,12 @@
             // CustomerGrid
             // 
             this.CustomerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CustomerGrid.EnableHeadersVisualStyles = false;
             this.CustomerGrid.Location = new System.Drawing.Point(313, 44);
+            this.CustomerGrid.MultiSelect = false;
             this.CustomerGrid.Name = "CustomerGrid";
+            this.CustomerGrid.RowHeadersVisible = false;
+            this.CustomerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CustomerGrid.Size = new System.Drawing.Size(709, 558);
             this.CustomerGrid.TabIndex = 2;
             // 
