@@ -280,11 +280,11 @@
             // 
             // Clear
             // 
-            this.Clear.Location = new System.Drawing.Point(217, 44);
+            this.Clear.Location = new System.Drawing.Point(187, 44);
             this.Clear.Name = "Clear";
-            this.Clear.Size = new System.Drawing.Size(75, 23);
+            this.Clear.Size = new System.Drawing.Size(105, 23);
             this.Clear.TabIndex = 21;
-            this.Clear.Text = "Clear";
+            this.Clear.Text = "Clear Selection";
             this.Clear.UseVisualStyleBackColor = true;
             this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
@@ -316,6 +316,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Name = "Customer";
             this.Text = "Customer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Customer_FormClosed);
             this.Load += new System.EventHandler(this.Customer_Load);
