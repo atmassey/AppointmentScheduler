@@ -24,7 +24,8 @@ namespace AppointmentScheduler.Globals
         private const string LoginQuery = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";
         // Query to get all customers
         private const string AllCustomerQuery = 
-            @"SELECT c.customerId, c.customerName, a.phone, a.address, a.address2, a.postalCode, ci.city, co.country, c.active FROM customer c
+            @"SELECT c.customerId, c.customerName, a.phone, a.address, a.address2, a.postalCode, ci.city, co.country, c.active 
+            FROM customer c
             JOIN address a ON c.addressId = a.addressId
             JOIN city ci ON ci.cityId = a.cityId
             JOIN country co ON co.countryId = ci.countryId";

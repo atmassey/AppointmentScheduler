@@ -316,7 +316,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Customer";
+            this.Name.Text = "Customer";
             this.Text = "Customer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Customer_FormClosed);
             this.Load += new System.EventHandler(this.Customer_Load);
