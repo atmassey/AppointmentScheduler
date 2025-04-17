@@ -222,18 +222,25 @@ namespace AppointmentScheduler.Forms
                 MessageBox.Show("Please enter a phone number.");
                 return;
             }
-            Customer customer = new Customer();
+            bool isActive = Active.Checked;
+            // Create a new customer object
+            Models.Customer customer = new Models.Customer();
             customer.Name = CustomerName.Text;
-            customer.Active = ;
-
-            Address address = new Address();
+            customer.Active = isActive;
+            // Create a new address object
+            Models.Address address = new Models.Address();
+            address.Address1 = Address.Text;
+            address.Address2 = AddressTwo.Text;
+            address.postalCode = PostalCode.Text;
+            address.phone = Phone.Text;
             // Add the customer to the database
             Database db = new Database();
-            db.AddCustomer();
+            db.AddCustomer(City.Text, Country.Text, customer, address);
             // Refresh the DataGridView
             DataTable customerData = db.GetAllCustomers();
             CustomerGrid.DataSource = customerData;
             // Feedback
             MessageBox.Show("Customer added successfully.");
         }
+    }
 }

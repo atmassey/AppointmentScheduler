@@ -251,6 +251,7 @@
             this.AddBtn.TabIndex = 17;
             this.AddBtn.Text = "Add";
             this.AddBtn.UseVisualStyleBackColor = true;
+            this.AddBtn.Click += new System.EventHandler(this.Add_Click);
             // 
             // SaveBtn
             // 
@@ -291,7 +292,7 @@
             this.Clear.UseVisualStyleBackColor = true;
             this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
-            // CustomerForm
+            // Customer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -319,7 +320,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "CustomerForm";
+            this.Name = "Customer";
             this.Text = "Customer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Customer_FormClosed);
             this.Load += new System.EventHandler(this.Customer_Load);

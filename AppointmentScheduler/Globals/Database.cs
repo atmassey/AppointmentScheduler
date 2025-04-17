@@ -56,17 +56,20 @@ namespace AppointmentScheduler.Globals
         private const string GetCountryIdQuery = "SELECT countryId FROM country WHERE country = @country";
         // Query to insert city
         private const string InsertCityQuery =
-        @"INSERT INTO city (city, countryId, createdDate, createdBy, lastUpdate, lastUpdatedBy) 
+        @"INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) 
         VALUES (@city, @countryId, @createdDate, @createdBy, @lastUpdate, @lastUpdatedBy)";
         // Query to insert country
         private const string InsertCountryQuery =
-        @"INSERT INTO country (country, createDate, createBy, lastUpdate, lastUpdateBy)
+        @"INSERT INTO country (country, createDate, createdBy, lastUpdate, lastUpdateBy)
         VALUES (@country, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
         private const string InsertAddressQuery =
             @"INSERT INTO address (address, address2, postalCode, phone, cityId, createDate, createdBy, lastUpdate, lastUpdateBy)
             VALUES (@address, @address2, @postalCode, @phone, @cityId, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
         private const string GetAddressIdQuery =
             @"SELECT addressId FROM address WHERE address = @address AND address2 = @address2 AND postalCode = @postalCode AND phone = @phone";
+        private const string InsertCustomerQuery =
+            @"INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) 
+            VALUES (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
 
         public static string ConnectionString
         {
@@ -333,7 +336,7 @@ namespace AppointmentScheduler.Globals
         {
             MySqlConnection conn = null;
             try
-            {
+            {   
                 conn = getConnection();
                 var parameters = new List<MySqlParameter>
                 {
@@ -385,7 +388,10 @@ namespace AppointmentScheduler.Globals
                         new MySqlParameter("@lastUpdateBy", CurrentUser)
                     };
                     MySqlCommand countryCmd = newQuery(conn, InsertCountryQuery, countryParameters);
-                    conn.Open();
+                    if (conn.State != ConnectionState.Open)
+                    {
+                        conn.Open();
+                    }
                     countryCmd.ExecuteNonQuery();
                 }
                 // Get the countryId for the inserted or existing country
@@ -409,7 +415,10 @@ namespace AppointmentScheduler.Globals
                         new MySqlParameter("@lastUpdatedBy", CurrentUser)
                     };
                     MySqlCommand cityCmd = newQuery(conn, InsertCityQuery, cityParameters);
-                    conn.Open();
+                    if (conn.State != ConnectionState.Open)
+                    {
+                        conn.Open();
+                    }
                     cityCmd.ExecuteNonQuery();
                 }
                 // Get the cityId for the inserted or existing city
@@ -433,7 +442,10 @@ namespace AppointmentScheduler.Globals
                     new MySqlParameter("@lastUpdateBy", CurrentUser)
                 };
                 MySqlCommand addressCmd = newQuery(conn, InsertAddressQuery, addressParameters);
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
                 addressCmd.ExecuteNonQuery();
                 // Get the addressId for the inserted address
                 int addressId = GetAddressId(address);
@@ -453,8 +465,11 @@ namespace AppointmentScheduler.Globals
                     new MySqlParameter("@lastUpdate", DateTime.Now),
                     new MySqlParameter("@lastUpdateBy", CurrentUser)
                 };
-                MySqlCommand customerCmd = newQuery(conn, InsertAddressQuery, customerParameters);
-                conn.Open();
+                MySqlCommand customerCmd = newQuery(conn, InsertCustomerQuery, customerParameters);
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
                 customerCmd.ExecuteNonQuery();
                 return true;
             }
