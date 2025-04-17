@@ -36,7 +36,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.CurrentUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.CustomerGrid = new System.Windows.Forms.DataGridView();
-            this.Name = new System.Windows.Forms.TextBox();
+            this.CustomerName = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.AddressLabel = new System.Windows.Forms.Label();
             this.Address = new System.Windows.Forms.TextBox();
@@ -118,6 +118,7 @@
             // 
             // CustomerGrid
             // 
+            this.CustomerGrid.AllowUserToAddRows = false;
             this.CustomerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CustomerGrid.EnableHeadersVisualStyles = false;
             this.CustomerGrid.Location = new System.Drawing.Point(313, 44);
@@ -129,12 +130,13 @@
             this.CustomerGrid.TabIndex = 2;
             this.CustomerGrid.SelectionChanged += new System.EventHandler(this.CustomerGrid_SelectionChanged);
             // 
-            // Name
+            // CustomerName
             // 
-            this.Name.Location = new System.Drawing.Point(12, 107);
-            this.Name.Name = "Name";
-            this.Name.Size = new System.Drawing.Size(281, 20);
-            this.Name.TabIndex = 3;
+            this.CustomerName.Location = new System.Drawing.Point(12, 107);
+            this.CustomerName.Name = "CustomerName";
+            this.CustomerName.Size = new System.Drawing.Size(281, 20);
+            this.CustomerName.TabIndex = 3;
+            this.CustomerName.Text = "Customer";
             // 
             // NameLabel
             // 
@@ -258,6 +260,7 @@
             this.SaveBtn.TabIndex = 18;
             this.SaveBtn.Text = "Save";
             this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.Save_Click);
             // 
             // DeleteBtn
             // 
@@ -288,7 +291,7 @@
             this.Clear.UseVisualStyleBackColor = true;
             this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
-            // Customer
+            // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -311,12 +314,12 @@
             this.Controls.Add(this.AddressLabel);
             this.Controls.Add(this.Address);
             this.Controls.Add(this.NameLabel);
-            this.Controls.Add(this.Name);
+            this.Controls.Add(this.CustomerName);
             this.Controls.Add(this.CustomerGrid);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name.Text = "Customer";
+            this.Name = "CustomerForm";
             this.Text = "Customer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Customer_FormClosed);
             this.Load += new System.EventHandler(this.Customer_Load);
@@ -340,7 +343,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel CurrentUser;
         private System.Windows.Forms.DataGridView CustomerGrid;
-        private System.Windows.Forms.TextBox Name;
+        private System.Windows.Forms.TextBox CustomerName;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label AddressLabel;
         private System.Windows.Forms.TextBox Address;

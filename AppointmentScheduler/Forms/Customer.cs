@@ -66,7 +66,7 @@ namespace AppointmentScheduler.Forms
         }
         private void LoadCustomerDetails()
         {
-            Name.Text = CustomerGrid.SelectedRows[0].Cells["customerName"].Value.ToString();
+            CustomerName.Text = CustomerGrid.SelectedRows[0].Cells["customerName"].Value.ToString();
             Address.Text = CustomerGrid.SelectedRows[0].Cells["address"].Value.ToString();
             AddressTwo.Text = CustomerGrid.SelectedRows[0].Cells["address2"].Value.ToString();
             PostalCode.Text = CustomerGrid.SelectedRows[0].Cells["postalCode"].Value.ToString();
@@ -94,27 +94,59 @@ namespace AppointmentScheduler.Forms
         }
         private void Clear_Click(object sender, EventArgs e)
         {
-            // Clear the form fields
-            Name.Text = "";
-            Address.Text = "";
-            AddressTwo.Text = "";
-            PostalCode.Text = "";
-            City.Text = "";
-            Country.Text = "";
-            Phone.Text = "";
-            Active.Checked = false;
-            // Clear the DataGridView selection
-            CustomerGrid.ClearSelection();
+            ClearFields();
         }
         private void Save_Click(object sender, EventArgs e)
         {
+            //Prompt the user to confirm the save action
+            DialogResult result = MessageBox.Show("Are you sure you want to save the changes?", "Confirm Save", MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+            // Check if the customer name is empty
+            if (string.IsNullOrEmpty(CustomerName.Text))
+            {
+                MessageBox.Show("Please enter a customer name.");
+                return;
+            }
+            // Check if the address is empty
+            if (string.IsNullOrEmpty(Address.Text))
+            {
+                MessageBox.Show("Please enter an address.");
+                return;
+            }
+            // Check if the city is empty
+            if (string.IsNullOrEmpty(City.Text))
+            {
+                MessageBox.Show("Please enter a city.");
+                return;
+            }
+            // Check if the country is empty
+            if (string.IsNullOrEmpty(Country.Text))
+            {
+                MessageBox.Show("Please enter a country.");
+                return;
+            }
+            // Check if the postal code is empty
+            if (string.IsNullOrEmpty(PostalCode.Text))
+            {
+                MessageBox.Show("Please enter a postal code.");
+                return;
+            }
+            // Check if the phone number is empty
+            if (string.IsNullOrEmpty(Phone.Text))
+            {
+                MessageBox.Show("Please enter a phone number.");
+                return;
+            }
             // Get the selected customer ID
             int customerId = Convert.ToInt32(CustomerGrid.SelectedRows[0].Cells["customerId"].Value);
             // Get the updated customer details from the form fields
             List<MySqlParameter> parameters = new List<MySqlParameter>
             {
                 new MySqlParameter("@customerId", customerId),
-                new MySqlParameter("@customerName", Name.Text),
+                new MySqlParameter("@customerName", CustomerName.Text),
                 new MySqlParameter("@active", Active.Checked),
                 new MySqlParameter("@phone", Phone.Text),
                 new MySqlParameter("@address", Address.Text),
@@ -129,6 +161,21 @@ namespace AppointmentScheduler.Forms
             // Refresh the DataGridView
             DataTable customerData = db.GetAllCustomers();
             CustomerGrid.DataSource = customerData;
+            // Feedback
+            MessageBox.Show("Customer updated successfully.");
+        }
+        private void ClearFields()
+        {
+            // Clear the form fields
+            CustomerName.Text = "";
+            Address.Text = "";
+            AddressTwo.Text = "";
+            PostalCode.Text = "";
+            City.Text = "";
+            Country.Text = "";
+            Phone.Text = "";
+            Active.Checked = false;
+            CustomerGrid.ClearSelection();
         }
     }
 }
