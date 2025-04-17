@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppointmentScheduler.Globals;
 using MySql.Data.MySqlClient;
+using AppointmentScheduler.Models;
 
 namespace AppointmentScheduler.Forms
 {
@@ -177,5 +178,62 @@ namespace AppointmentScheduler.Forms
             Active.Checked = false;
             CustomerGrid.ClearSelection();
         }
-    }
+        private void Add_Click(object sender, EventArgs e)
+        {
+            //Prompt the user to confirm the add action
+            DialogResult result = MessageBox.Show("Are you sure you want to add a new customer?", "Confirm Add", MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+            // Check if the customer name is empty
+            if (string.IsNullOrEmpty(CustomerName.Text))
+            {
+                MessageBox.Show("Please enter a customer name.");
+                return;
+            }
+            // Check if the address is empty
+            if (string.IsNullOrEmpty(Address.Text))
+            {
+                MessageBox.Show("Please enter an address.");
+                return;
+            }
+            // Check if the city is empty
+            if (string.IsNullOrEmpty(City.Text))
+            {
+                MessageBox.Show("Please enter a city.");
+                return;
+            }
+            // Check if the country is empty
+            if (string.IsNullOrEmpty(Country.Text))
+            {
+                MessageBox.Show("Please enter a country.");
+                return;
+            }
+            // Check if the postal code is empty
+            if (string.IsNullOrEmpty(PostalCode.Text))
+            {
+                MessageBox.Show("Please enter a postal code.");
+                return;
+            }
+            // Check if the phone number is empty
+            if (string.IsNullOrEmpty(Phone.Text))
+            {
+                MessageBox.Show("Please enter a phone number.");
+                return;
+            }
+            Customer customer = new Customer();
+            customer.Name = CustomerName.Text;
+            customer.Active = ;
+
+            Address address = new Address();
+            // Add the customer to the database
+            Database db = new Database();
+            db.AddCustomer();
+            // Refresh the DataGridView
+            DataTable customerData = db.GetAllCustomers();
+            CustomerGrid.DataSource = customerData;
+            // Feedback
+            MessageBox.Show("Customer added successfully.");
+        }
 }
