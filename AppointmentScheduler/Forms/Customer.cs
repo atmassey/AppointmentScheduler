@@ -241,6 +241,11 @@ namespace AppointmentScheduler.Forms
             CustomerGrid.DataSource = customerData;
             // Feedback
             MessageBox.Show("Customer added successfully.");
+            // Reload the customer data into the DataGridView
+            customerData = db.GetAllCustomers();
+            CustomerGrid.DataSource = customerData;
+            // Refresh the form fields
+            ClearFields();
         }
     }
 }

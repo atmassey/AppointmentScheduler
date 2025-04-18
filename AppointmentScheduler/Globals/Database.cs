@@ -29,7 +29,8 @@ namespace AppointmentScheduler.Globals
             FROM customer c
             JOIN address a ON c.addressId = a.addressId
             JOIN city ci ON ci.cityId = a.cityId
-            JOIN country co ON co.countryId = ci.countryId";
+            JOIN country co ON co.countryId = ci.countryId
+            ORDER BY c.customerId ASC";
         // Query to update customer by customerId
         private const string UpdateCustomerQuery =
            @"UPDATE customer c
