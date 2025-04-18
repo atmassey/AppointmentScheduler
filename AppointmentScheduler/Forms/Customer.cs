@@ -64,6 +64,8 @@ namespace AppointmentScheduler.Forms
                 // Load the customer details into the form fields
                 LoadCustomerDetails();
             }
+            // Clear the form fields
+            ClearFields();
         }
         private void LoadCustomerDetails()
         {
