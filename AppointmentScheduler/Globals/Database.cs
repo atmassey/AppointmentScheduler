@@ -71,6 +71,8 @@ namespace AppointmentScheduler.Globals
         private const string InsertCustomerQuery =
             @"INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) 
             VALUES (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+        private const string RemoveCustomerQuery =
+            @"DELETE FROM customer WHERE customerId = @customerId";
 
         public static string ConnectionString
         {
@@ -472,6 +474,35 @@ namespace AppointmentScheduler.Globals
                     conn.Open();
                 }
                 customerCmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public bool RemoveCustomer(int customerId)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                var parameters = new List<MySqlParameter>
+                {
+                    new MySqlParameter("@customerId", customerId)
+                };
+                MySqlCommand cmd = newQuery(conn, RemoveCustomerQuery, parameters);
+                conn.Open();
+                cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex)

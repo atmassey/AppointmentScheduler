@@ -249,5 +249,30 @@ namespace AppointmentScheduler.Forms
             // Refresh the form fields
             ClearFields();
         }
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            //Prompt the user to confirm the delete action
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the customer?", "Confirm Delete", MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+            // Check if a customer is selected
+            if (CustomerGrid.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a customer to delete.");
+                return;
+            }
+            // Get the selected customer ID
+            int customerId = Convert.ToInt32(CustomerGrid.SelectedRows[0].Cells["customerId"].Value);
+            // Delete the customer from the database
+            Database db = new Database();
+            db.RemoveCustomer(customerId);
+            // Refresh the DataGridView
+            DataTable customerData = db.GetAllCustomers();
+            CustomerGrid.DataSource = customerData;
+            // Feedback
+            MessageBox.Show("Customer deleted successfully.");
+        }
     }
 }
