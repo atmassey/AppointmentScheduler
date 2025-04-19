@@ -101,6 +101,7 @@ namespace AppointmentScheduler.Forms
         }
         private void Save_Click(object sender, EventArgs e)
         {
+            try { 
             //Prompt the user to confirm the save action
             DialogResult result = MessageBox.Show("Are you sure you want to save the changes?", "Confirm Save", MessageBoxButtons.YesNo);
             if (result != DialogResult.Yes)
@@ -168,6 +169,11 @@ namespace AppointmentScheduler.Forms
             ClearFields();
             // Feedback
             MessageBox.Show("Customer updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, Database.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void ClearFields()
         {
@@ -184,95 +190,109 @@ namespace AppointmentScheduler.Forms
         }
         private void Add_Click(object sender, EventArgs e)
         {
-            //Prompt the user to confirm the add action
-            DialogResult result = MessageBox.Show("Are you sure you want to add a new customer?", "Confirm Add", MessageBoxButtons.YesNo);
-            if (result != DialogResult.Yes)
+            try
             {
-                return;
+                //Prompt the user to confirm the add action
+                DialogResult result = MessageBox.Show("Are you sure you want to add a new customer?", "Confirm Add", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+                // Check if the customer name is empty
+                if (string.IsNullOrEmpty(CustomerName.Text))
+                {
+                    MessageBox.Show("Please enter a customer name.");
+                    return;
+                }
+                // Check if the address is empty
+                if (string.IsNullOrEmpty(Address.Text))
+                {
+                    MessageBox.Show("Please enter an address.");
+                    return;
+                }
+                // Check if the city is empty
+                if (string.IsNullOrEmpty(City.Text))
+                {
+                    MessageBox.Show("Please enter a city.");
+                    return;
+                }
+                // Check if the country is empty
+                if (string.IsNullOrEmpty(Country.Text))
+                {
+                    MessageBox.Show("Please enter a country.");
+                    return;
+                }
+                // Check if the postal code is empty
+                if (string.IsNullOrEmpty(PostalCode.Text))
+                {
+                    MessageBox.Show("Please enter a postal code.");
+                    return;
+                }
+                // Check if the phone number is empty
+                if (string.IsNullOrEmpty(Phone.Text))
+                {
+                    MessageBox.Show("Please enter a phone number.");
+                    return;
+                }
+                bool isActive = Active.Checked;
+                // Create a new customer object
+                Models.Customer customer = new Models.Customer();
+                customer.Name = CustomerName.Text;
+                customer.Active = isActive;
+                // Create a new address object
+                Models.Address address = new Models.Address();
+                address.Address1 = Address.Text;
+                address.Address2 = AddressTwo.Text;
+                address.postalCode = PostalCode.Text;
+                address.phone = Phone.Text;
+                // Add the customer to the database
+                Database db = new Database();
+                db.AddCustomer(City.Text, Country.Text, customer, address);
+                // Refresh the DataGridView
+                DataTable customerData = db.GetAllCustomers();
+                CustomerGrid.DataSource = customerData;
+                // Clear the form fields
+                ClearFields();
+                // Feedback
+                MessageBox.Show("Customer added successfully.");
             }
-            // Check if the customer name is empty
-            if (string.IsNullOrEmpty(CustomerName.Text))
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter a customer name.");
-                return;
+                MessageBox.Show("An error occurred while adding the customer: " + ex.Message, Database.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // Check if the address is empty
-            if (string.IsNullOrEmpty(Address.Text))
-            {
-                MessageBox.Show("Please enter an address.");
-                return;
-            }
-            // Check if the city is empty
-            if (string.IsNullOrEmpty(City.Text))
-            {
-                MessageBox.Show("Please enter a city.");
-                return;
-            }
-            // Check if the country is empty
-            if (string.IsNullOrEmpty(Country.Text))
-            {
-                MessageBox.Show("Please enter a country.");
-                return;
-            }
-            // Check if the postal code is empty
-            if (string.IsNullOrEmpty(PostalCode.Text))
-            {
-                MessageBox.Show("Please enter a postal code.");
-                return;
-            }
-            // Check if the phone number is empty
-            if (string.IsNullOrEmpty(Phone.Text))
-            {
-                MessageBox.Show("Please enter a phone number.");
-                return;
-            }
-            bool isActive = Active.Checked;
-            // Create a new customer object
-            Models.Customer customer = new Models.Customer();
-            customer.Name = CustomerName.Text;
-            customer.Active = isActive;
-            // Create a new address object
-            Models.Address address = new Models.Address();
-            address.Address1 = Address.Text;
-            address.Address2 = AddressTwo.Text;
-            address.postalCode = PostalCode.Text;
-            address.phone = Phone.Text;
-            // Add the customer to the database
-            Database db = new Database();
-            db.AddCustomer(City.Text, Country.Text, customer, address);
-            // Refresh the DataGridView
-            DataTable customerData = db.GetAllCustomers();
-            CustomerGrid.DataSource = customerData;
-            // Clear the form fields
-            ClearFields();
-            // Feedback
-            MessageBox.Show("Customer added successfully.");
         }
         private void Delete_Click(object sender, EventArgs e)
         {
-            //Prompt the user to confirm the delete action
-            DialogResult result = MessageBox.Show("Are you sure you want to delete the customer?", "Confirm Delete", MessageBoxButtons.YesNo);
-            if (result != DialogResult.Yes)
+            try
             {
-                return;
+                //Prompt the user to confirm the delete action
+                DialogResult result = MessageBox.Show("Are you sure you want to delete the customer?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+                // Check if a customer is selected
+                if (CustomerGrid.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Please select a customer to delete.");
+                    return;
+                }
+                // Get the selected customer ID
+                int customerId = Convert.ToInt32(CustomerGrid.SelectedRows[0].Cells["customerId"].Value);
+                // Delete the customer from the database
+                Database db = new Database();
+                db.RemoveCustomer(customerId);
+                // Refresh the DataGridView
+                DataTable customerData = db.GetAllCustomers();
+                CustomerGrid.DataSource = customerData;
+                ClearFields();
+                // Feedback
+                MessageBox.Show("Customer deleted successfully.");
             }
-            // Check if a customer is selected
-            if (CustomerGrid.SelectedRows.Count == 0)
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a customer to delete.");
-                return;
+                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, Database.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // Get the selected customer ID
-            int customerId = Convert.ToInt32(CustomerGrid.SelectedRows[0].Cells["customerId"].Value);
-            // Delete the customer from the database
-            Database db = new Database();
-            db.RemoveCustomer(customerId);
-            // Refresh the DataGridView
-            DataTable customerData = db.GetAllCustomers();
-            CustomerGrid.DataSource = customerData;
-            ClearFields();
-            // Feedback
-            MessageBox.Show("Customer deleted successfully.");
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AppointmentScheduler.Models;
 using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
 
 namespace AppointmentScheduler.Globals
 {
@@ -19,6 +18,7 @@ namespace AppointmentScheduler.Globals
         public static string DatabaseName = "client_schedule";
         public static string Username = "sqlUser";
         public static string Password = "Passw0rd!";
+        public static string DbError = "Database Error";
         public static string CurrentUser { get; set; } = "";
 
         // Query strings
