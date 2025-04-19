@@ -164,6 +164,8 @@ namespace AppointmentScheduler.Forms
             // Refresh the DataGridView
             DataTable customerData = db.GetAllCustomers();
             CustomerGrid.DataSource = customerData;
+            // Clear the form fields
+            ClearFields();
             // Feedback
             MessageBox.Show("Customer updated successfully.");
         }
@@ -241,13 +243,10 @@ namespace AppointmentScheduler.Forms
             // Refresh the DataGridView
             DataTable customerData = db.GetAllCustomers();
             CustomerGrid.DataSource = customerData;
+            // Clear the form fields
+            ClearFields();
             // Feedback
             MessageBox.Show("Customer added successfully.");
-            // Reload the customer data into the DataGridView
-            customerData = db.GetAllCustomers();
-            CustomerGrid.DataSource = customerData;
-            // Refresh the form fields
-            ClearFields();
         }
         private void Delete_Click(object sender, EventArgs e)
         {
@@ -271,6 +270,7 @@ namespace AppointmentScheduler.Forms
             // Refresh the DataGridView
             DataTable customerData = db.GetAllCustomers();
             CustomerGrid.DataSource = customerData;
+            ClearFields();
             // Feedback
             MessageBox.Show("Customer deleted successfully.");
         }
