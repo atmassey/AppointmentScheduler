@@ -18,7 +18,6 @@ namespace AppointmentScheduler.Globals
         public static string DatabaseName = "client_schedule";
         public static string Username = "sqlUser";
         public static string Password = "Passw0rd!";
-        public static string DbError = "Database Error";
         public static string CurrentUser { get; set; } = "";
 
         // Query strings
@@ -153,8 +152,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return null;
+                throw new DatabaseException("Error retrieving customers: " + ex.Message);
             }
             finally
             {
@@ -165,7 +163,7 @@ namespace AppointmentScheduler.Globals
                 }
             }
         }
-        public bool UpdateCustomer(int customerId, List<MySqlParameter> parameters)
+        public void UpdateCustomer(int customerId, List<MySqlParameter> parameters)
         {
             MySqlConnection conn = null;
             try
@@ -174,12 +172,10 @@ namespace AppointmentScheduler.Globals
                 MySqlCommand cmd = newQuery(conn, UpdateCustomerQuery, parameters);
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                throw new DatabaseException("Error updating customer: " + ex.Message);
             }
             finally
             {
@@ -216,8 +212,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                throw new DatabaseException("Error retrieving city: " + ex.Message);
             }
             finally
             {
@@ -250,8 +245,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return 0;
+                throw new DatabaseException("Error retrieving city ID: " + ex.Message);
             }
             finally
             {
@@ -288,8 +282,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                throw new DatabaseException("Error retrieving country: " + ex.Message);
             }
             finally
             {
@@ -322,8 +315,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return 0;
+                throw new DatabaseException("Error retrieving country ID: " + ex.Message);
             }
             finally
             {
@@ -359,8 +351,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return 0;
+                throw new DatabaseException("Error retrieving address ID: " + ex.Message);
             }
             finally
             {
@@ -400,7 +391,6 @@ namespace AppointmentScheduler.Globals
                 int countryId = GetCountryId(country);
                 if (countryId == 0)
                 {
-                    Console.WriteLine("Error: Country ID not found.");
                     return false;
                 }
                 // Check if the city exists
@@ -427,7 +417,6 @@ namespace AppointmentScheduler.Globals
                 int cityId = GetCityId(city);
                 if (cityId == 0)
                 {
-                    Console.WriteLine("Error: City ID not found.");
                     return false;
                 }
                 // Add the customer address to the database
@@ -453,7 +442,6 @@ namespace AppointmentScheduler.Globals
                 int addressId = GetAddressId(address);
                 if (addressId == 0)
                 {
-                    Console.WriteLine("Error: Address ID not found.");
                     return false;
                 }
                 // Add the customer to the database
@@ -477,8 +465,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                throw new DatabaseException("Error adding customer: " + ex.Message);
             }
             finally
             {
@@ -506,8 +493,7 @@ namespace AppointmentScheduler.Globals
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                throw new DatabaseException("Error removing customer: " + ex.Message);
             }
             finally
             {

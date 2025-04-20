@@ -172,7 +172,7 @@ namespace AppointmentScheduler.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, Database.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ClearFields()
@@ -258,7 +258,7 @@ namespace AppointmentScheduler.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while adding the customer: " + ex.Message, Database.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while adding the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void Delete_Click(object sender, EventArgs e)
@@ -291,7 +291,7 @@ namespace AppointmentScheduler.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, Database.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

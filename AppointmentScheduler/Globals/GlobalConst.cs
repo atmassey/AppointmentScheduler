@@ -9,5 +9,6 @@ namespace AppointmentScheduler.Globals
     public static class GlobalConst
     {
         public const string LoginError = "Login Error";
+        public const string DbError = "Database Error";
     }
 }
