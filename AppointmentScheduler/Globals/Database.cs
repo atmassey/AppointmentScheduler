@@ -100,7 +100,7 @@ namespace AppointmentScheduler.Globals
             }
             return cmd;
         }
-        public bool Login(string username, string password)
+        public void Login(string username, string password)
         {
             MySqlConnection conn = null;
             try
@@ -120,15 +120,14 @@ namespace AppointmentScheduler.Globals
                     string passWord = reader["password"].ToString();
                     if (userName == username && passWord == password)
                     {
-                        return true;
+                        return;
                     }
                 }
-                return false;
+                throw new LoginException("Invalid username or password.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                throw new LoginException("Login failed: " + ex.Message);
             }
             finally
             {

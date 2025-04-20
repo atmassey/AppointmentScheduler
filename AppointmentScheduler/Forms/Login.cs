@@ -25,25 +25,30 @@ namespace AppointmentScheduler.Forms
         }
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Login button clicked.");
-            string username = LoginUsername.Text;
-            string password = LoginPassword.Text;
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            try
             {
-                MessageBox.Show("Please enter a username and password.");
-                return;
+                string username = LoginUsername.Text;
+                string password = LoginPassword.Text;
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Please enter a username and password.");
+                    return;
+                }
+                Database db = new Database();
+                db.Login(username, password);
+                Database.CurrentUser = username;
+                Main main = new Main();
+                main.Show();
+                this.Hide();
             }
-            Database db = new Database();
-            var result = db.Login(username, password);
-            if (!result)
+            catch (LoginException ex)
             {
-                MessageBox.Show("Invalid username or password.");
-                return;
+                MessageBox.Show(ex.Message);
             }
-            Database.CurrentUser = username;
-            Main main = new Main();
-            main.Show();
-            this.Hide();
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
         }
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {

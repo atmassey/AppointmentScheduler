@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduler.Globals
 {
-    public class GlobalException : Exception
+    public class LoginException : Exception
     {
-        public GlobalException(string message) : base(message)
+        public LoginException(string message) : base(message)
         {
         }
-        public GlobalException(string message, Exception innerException) : base(message, innerException)
+        public LoginException(string message, Exception innerException) : base(message, innerException)
         {
         }
         public override string ToString()
         {
-            return $"DatabaseException: {Message}";
+            return $"LoginException: {Message}";
         }
     }
 }
