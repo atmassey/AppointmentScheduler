@@ -43,11 +43,11 @@ namespace AppointmentScheduler.Forms
             }
             catch (LoginException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show("An error occurred while logging in " + ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
