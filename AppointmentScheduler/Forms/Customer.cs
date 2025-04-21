@@ -101,7 +101,13 @@ namespace AppointmentScheduler.Forms
         }
         private void Save_Click(object sender, EventArgs e)
         {
-            try { 
+            try {
+            // Check if a customer is selected
+            if (CustomerGrid.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a customer to update.");
+                return;
+            }
             //Prompt the user to confirm the save action
             DialogResult result = MessageBox.Show("Are you sure you want to save the changes?", "Confirm Save", MessageBoxButtons.YesNo);
             if (result != DialogResult.Yes)
@@ -144,20 +150,36 @@ namespace AppointmentScheduler.Forms
                 MessageBox.Show("Please enter a phone number.");
                 return;
             }
+            // Initialize the customer object
+            Models.Customer customer = new Models.Customer();
+            customer.Name = CustomerName.Text;
+            customer.Active = Active.Checked;
+            // Initialize the address object
+            Address address = new Address();
+            address.Address1 = Address.Text;
+            address.Address2 = AddressTwo.Text;
+            address.postalCode = PostalCode.Text;
+            address.phone = Phone.Text;
+            // Initialize the city object
+            City city = new City();
+            city.CityName = City.Text;
+            // Initialize the country object
+            Models.Country country = new Country();
+            country.CountryName = Country.Text;
             // Get the selected customer ID
             int customerId = Convert.ToInt32(CustomerGrid.SelectedRows[0].Cells["customerId"].Value);
             // Get the updated customer details from the form fields
             List<MySqlParameter> parameters = new List<MySqlParameter>
             {
                 new MySqlParameter("@customerId", customerId),
-                new MySqlParameter("@customerName", CustomerName.Text),
-                new MySqlParameter("@active", Active.Checked),
-                new MySqlParameter("@phone", Phone.Text),
-                new MySqlParameter("@address", Address.Text),
-                new MySqlParameter("@address2", AddressTwo.Text),
-                new MySqlParameter("@postalCode", PostalCode.Text),
-                new MySqlParameter("@city", City.Text),
-                new MySqlParameter("@country", Country.Text)
+                new MySqlParameter("@customerName", customer.Name),
+                new MySqlParameter("@active", customer.Active),
+                new MySqlParameter("@phone", address.phone),
+                new MySqlParameter("@address", address.Address1),
+                new MySqlParameter("@address2", address.Address2),
+                new MySqlParameter("@postalCode", address.postalCode),
+                new MySqlParameter("@city", city.CityName),
+                new MySqlParameter("@country", country.CountryName)
             };
             // Update the customer in the database
             Database db = new Database();
