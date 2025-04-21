@@ -39,10 +39,6 @@ namespace AppointmentScheduler.Models
             get { return _postalCode; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("PostalCode cannot be null or empty.");
-                }
                 _postalCode = value.Trim();
             }
         }
@@ -65,8 +61,32 @@ namespace AppointmentScheduler.Models
             }
         }
         public DateTime createDate { get; set; }
-        public string createdBy { get; set; }
+        private string _createdBy;
+        public string createdBy
+        {
+            get { return _createdBy; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Created By cannot be null or empty.");
+                }
+                _createdBy = value.Trim();
+            }
+        }
         public Timestamp lastUpdate { get; set; }
-        public string lastUpdateBy { get; set; }
+        private string _lastUpdateBy;
+        public string lastUpdateBy
+        {
+            get { return _lastUpdateBy; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Last Updated By cannot be null or empty.");
+                }
+                _lastUpdateBy = value.Trim();
+            }
+        }
     }
 }

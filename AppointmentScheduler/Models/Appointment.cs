@@ -93,9 +93,33 @@ namespace AppointmentScheduler.Models
         }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public string CreatedBy { get; set; }
+        private string _createdBy;
+        public string CreatedBy
+        {
+            get { return _createdBy; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Created By cannot be null or empty.");
+                }
+                _createdBy = value.Trim();
+            }
+        }
         public DateTime CreatedDate { get; set; }
-        public string LastUpdatedBy { get; set; }
+        private string _lastUpdatedBy;
+        public string LastUpdatedBy
+        {
+            get { return _lastUpdatedBy; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Last Updated By cannot be null or empty.");
+                }
+                _lastUpdatedBy = value.Trim();
+            }
+        }
         public Timestamp lastUpdate { get; set; }
     }
 }
