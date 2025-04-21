@@ -170,9 +170,17 @@ namespace AppointmentScheduler.Forms
             // Feedback
             MessageBox.Show("Customer updated successfully.");
             }
+            catch (DatabaseException ex)
+            {
+                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ClearFields()
@@ -198,42 +206,6 @@ namespace AppointmentScheduler.Forms
                 {
                     return;
                 }
-                // Check if the customer name is empty
-                if (string.IsNullOrEmpty(CustomerName.Text))
-                {
-                    MessageBox.Show("Please enter a customer name.");
-                    return;
-                }
-                // Check if the address is empty
-                if (string.IsNullOrEmpty(Address.Text))
-                {
-                    MessageBox.Show("Please enter an address.");
-                    return;
-                }
-                // Check if the city is empty
-                if (string.IsNullOrEmpty(City.Text))
-                {
-                    MessageBox.Show("Please enter a city.");
-                    return;
-                }
-                // Check if the country is empty
-                if (string.IsNullOrEmpty(Country.Text))
-                {
-                    MessageBox.Show("Please enter a country.");
-                    return;
-                }
-                // Check if the postal code is empty
-                if (string.IsNullOrEmpty(PostalCode.Text))
-                {
-                    MessageBox.Show("Please enter a postal code.");
-                    return;
-                }
-                // Check if the phone number is empty
-                if (string.IsNullOrEmpty(Phone.Text))
-                {
-                    MessageBox.Show("Please enter a phone number.");
-                    return;
-                }
                 bool isActive = Active.Checked;
                 // Create a new customer object
                 Models.Customer customer = new Models.Customer();
@@ -245,9 +217,15 @@ namespace AppointmentScheduler.Forms
                 address.Address2 = AddressTwo.Text;
                 address.postalCode = PostalCode.Text;
                 address.phone = Phone.Text;
+                // Create a new city object
+                Models.City city = new Models.City();
+                city.CityName = City.Text;
+                // Create a new country object
+                Models.Country country = new Models.Country();
+                country.CountryName = Country.Text;
                 // Add the customer to the database
                 Database db = new Database();
-                db.AddCustomer(City.Text, Country.Text, customer, address);
+                db.AddCustomer(city, country, customer, address);
                 // Refresh the DataGridView
                 DataTable customerData = db.GetAllCustomers();
                 CustomerGrid.DataSource = customerData;
@@ -256,9 +234,17 @@ namespace AppointmentScheduler.Forms
                 // Feedback
                 MessageBox.Show("Customer added successfully.");
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("An error occurred while adding the customer: " + ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (DatabaseException ex)
             {
                 MessageBox.Show("An error occurred while adding the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while adding the customer: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void Delete_Click(object sender, EventArgs e)
@@ -289,9 +275,17 @@ namespace AppointmentScheduler.Forms
                 // Feedback
                 MessageBox.Show("Customer deleted successfully.");
             }
-            catch (Exception ex)
+            catch (DatabaseException ex)
             {
                 MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

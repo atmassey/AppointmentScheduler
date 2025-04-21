@@ -10,12 +10,47 @@ namespace AppointmentScheduler.Models
     public class Customer
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Name cannot be null or empty.");
+                }
+            }
+        }
         public int addressId { get; set; }
         public bool Active { get; set; }
         public DateTime createdDate { get; set; }
-        public string createdBy { get; set; }
+        private string _createdBy;
+        public string createdBy
+        {
+            get { return _createdBy; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Created By cannot be null or empty.");
+                }
+                _createdBy = value.Trim();
+            }
+        }
         public Timestamp lastUpdate { get; set; }
-        public string lastUpdateBy { get; set; }
+        private string _lastUpdateBy;
+        public string lastUpdateBy
+        {
+            get { return _lastUpdateBy; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Last Updated By cannot be null or empty.");
+                }
+                _lastUpdateBy = value.Trim();
+            }
+        }
     }
 }

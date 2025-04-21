@@ -10,10 +10,46 @@ namespace AppointmentScheduler.Models
     public class Country
     {
         public int Id { get; set; }
-        public string CountryName { get; set; }
+        private string _countryName;
+        public string CountryName
+        {
+            get { return _countryName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Country Name cannot be null or empty.");
+                }
+                _countryName = value.Trim();
+            }
+        }
         public DateTime createDate { get; set; }
-        public string createdBy { get; set; }
+        private string _createdBy;
+        public string createdBy
+        {
+            get { return _createdBy; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Created By cannot be null or empty.");
+                }
+                _createdBy = value.Trim();
+            }
+        }
         public Timestamp lastUpdate { get; set; }
-        public string lastUpdateBy { get; set; }
+        private string _lastUpdateBy;
+        public string lastUpdateBy
+        {
+            get { return _lastUpdateBy; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Last Updated By cannot be null or empty.");
+                }
+                _lastUpdateBy = value.Trim();
+            }
+        }
     }
 }

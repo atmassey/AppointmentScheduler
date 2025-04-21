@@ -10,11 +10,59 @@ namespace AppointmentScheduler.Models
     public class Address
     {
         public int Id { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
+        private string _address1;
+        public string Address1
+        {
+            get { return _address1; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Address1 cannot be null or empty.");
+                }
+                _address1 = value.Trim();
+            }
+        }
+        private string _address2;
+        public string Address2
+        {
+            get { return _address2; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Address2 cannot be null or empty.");
+                }
+                _address2 = value.Trim();
+            }
+        }
         public int cityId { get; set; }
-        public string postalCode { get; set; }
-        public string phone { get; set; }
+        private string _postalCode;
+        public string postalCode
+        {
+            get { return _postalCode; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("PostalCode cannot be null or empty.");
+                }
+                _postalCode = value.Trim();
+            }
+        }
+        private string _phone;
+        public string phone
+        {
+            get { return _phone; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Phone cannot be null or empty.");
+                }
+                _phone = value.Trim();
+            }
+        }
         public DateTime createDate { get; set; }
         public string createdBy { get; set; }
         public Timestamp lastUpdate { get; set; }

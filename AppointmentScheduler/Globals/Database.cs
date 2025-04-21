@@ -362,14 +362,14 @@ namespace AppointmentScheduler.Globals
                 }
             }
         }
-        public bool AddCustomer(string city, string country, Customer customer, Address address)
+        public bool AddCustomer(City city, Country country, Customer customer, Address address)
         {
             MySqlConnection conn = null;
             try
             {
                 conn = getConnection();
                 // Check if the country exists
-                if (!GetCountry(country))
+                if (!GetCountry(country.CountryName))
                 {
                     // If not, insert the country
                     var countryParameters = new List<MySqlParameter>
@@ -388,13 +388,13 @@ namespace AppointmentScheduler.Globals
                     countryCmd.ExecuteNonQuery();
                 }
                 // Get the countryId for the inserted or existing country
-                int countryId = GetCountryId(country);
+                int countryId = GetCountryId(country.CountryName);
                 if (countryId == 0)
                 {
                     return false;
                 }
                 // Check if the city exists
-                if (!GetCity(city))
+                if (!GetCity(city.CityName))
                 {
                     // If not, insert the city
                     var cityParameters = new List<MySqlParameter>
@@ -414,7 +414,7 @@ namespace AppointmentScheduler.Globals
                     cityCmd.ExecuteNonQuery();
                 }
                 // Get the cityId for the inserted or existing city
-                int cityId = GetCityId(city);
+                int cityId = GetCityId(city.CityName);
                 if (cityId == 0)
                 {
                     return false;
