@@ -29,10 +29,6 @@ namespace AppointmentScheduler.Models
             get { return _address2; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Address2 cannot be null or empty.");
-                }
                 _address2 = value.Trim();
             }
         }
@@ -59,6 +55,11 @@ namespace AppointmentScheduler.Models
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Phone cannot be null or empty.");
+                }
+                // Check if the phone number contains only digits and dashes and spaces
+                if (!value.All(c => char.IsDigit(c) || c == '-' || c == ' '))
+                {
+                    throw new ArgumentException("Phone number can only contain digits and dashes");
                 }
                 _phone = value.Trim();
             }

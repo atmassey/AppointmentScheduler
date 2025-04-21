@@ -374,7 +374,7 @@ namespace AppointmentScheduler.Globals
                     // If not, insert the country
                     var countryParameters = new List<MySqlParameter>
                     {
-                        new MySqlParameter("@country", country),
+                        new MySqlParameter("@country", country.CountryName),
                         new MySqlParameter("@createDate", DateTime.Now),
                         new MySqlParameter("@createdBy", CurrentUser),
                         new MySqlParameter("@lastUpdate", DateTime.Now),
@@ -399,7 +399,7 @@ namespace AppointmentScheduler.Globals
                     // If not, insert the city
                     var cityParameters = new List<MySqlParameter>
                     {
-                        new MySqlParameter("@city", city),
+                        new MySqlParameter("@city", city.CityName),
                         new MySqlParameter("@countryId", countryId),
                         new MySqlParameter("@createdDate", DateTime.Now),
                         new MySqlParameter("@createdBy", CurrentUser),

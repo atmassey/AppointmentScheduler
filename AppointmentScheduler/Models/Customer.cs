@@ -20,6 +20,7 @@ namespace AppointmentScheduler.Models
                 {
                     throw new ArgumentException("Name cannot be null or empty.");
                 }
+                _name = value.Trim();
             }
         }
         public int addressId { get; set; }
