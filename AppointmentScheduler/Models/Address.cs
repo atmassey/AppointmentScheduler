@@ -57,7 +57,7 @@ namespace AppointmentScheduler.Models
                     throw new ArgumentException("Phone cannot be null or empty.");
                 }
                 // Check if the phone number contains only digits and dashes and spaces
-                if (!value.All(c => char.IsDigit(c) || c == '-' || c == ' '))
+                if (!value.All(c => char.IsDigit(c) || c == '-'))
                 {
                     throw new ArgumentException("Phone number can only contain digits and dashes");
                 }
