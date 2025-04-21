@@ -16,10 +16,6 @@ namespace AppointmentScheduler.Models
             get { return _cityName; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("City Name cannot be null or empty.");
-                }
                 _cityName = value.Trim();
             }
         }

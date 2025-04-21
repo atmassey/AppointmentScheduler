@@ -16,10 +16,6 @@ namespace AppointmentScheduler.Models
             get { return _countryName; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Country Name cannot be null or empty.");
-                }
                 _countryName = value.Trim();
             }
         }

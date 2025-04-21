@@ -114,42 +114,6 @@ namespace AppointmentScheduler.Forms
             {
                 return;
             }
-            // Check if the customer name is empty
-            if (string.IsNullOrEmpty(CustomerName.Text))
-            {
-                MessageBox.Show("Please enter a customer name.");
-                return;
-            }
-            // Check if the address is empty
-            if (string.IsNullOrEmpty(Address.Text))
-            {
-                MessageBox.Show("Please enter an address.");
-                return;
-            }
-            // Check if the city is empty
-            if (string.IsNullOrEmpty(City.Text))
-            {
-                MessageBox.Show("Please enter a city.");
-                return;
-            }
-            // Check if the country is empty
-            if (string.IsNullOrEmpty(Country.Text))
-            {
-                MessageBox.Show("Please enter a country.");
-                return;
-            }
-            // Check if the postal code is empty
-            if (string.IsNullOrEmpty(PostalCode.Text))
-            {
-                MessageBox.Show("Please enter a postal code.");
-                return;
-            }
-            // Check if the phone number is empty
-            if (string.IsNullOrEmpty(Phone.Text))
-            {
-                MessageBox.Show("Please enter a phone number.");
-                return;
-            }
             // Initialize the customer object
             Models.Customer customer = new Models.Customer();
             customer.Name = CustomerName.Text;
@@ -222,6 +186,12 @@ namespace AppointmentScheduler.Forms
         {
             try
             {
+                // Check if all fields are filled
+                if (string.IsNullOrWhiteSpace(CustomerName.Text) || string.IsNullOrWhiteSpace(Address.Text) || string.IsNullOrWhiteSpace(Phone.Text))
+                {
+                    MessageBox.Show("Please enter customer name, phone number, and address to add them.");
+                    return;
+                }
                 //Prompt the user to confirm the add action
                 DialogResult result = MessageBox.Show("Are you sure you want to add a new customer?", "Confirm Add", MessageBoxButtons.YesNo);
                 if (result != DialogResult.Yes)
@@ -273,16 +243,16 @@ namespace AppointmentScheduler.Forms
         {
             try
             {
-                //Prompt the user to confirm the delete action
-                DialogResult result = MessageBox.Show("Are you sure you want to delete the customer?", "Confirm Delete", MessageBoxButtons.YesNo);
-                if (result != DialogResult.Yes)
-                {
-                    return;
-                }
                 // Check if a customer is selected
                 if (CustomerGrid.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Please select a customer to delete.");
+                    return;
+                }
+                //Prompt the user to confirm the delete action
+                DialogResult result = MessageBox.Show("Are you sure you want to delete the customer?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes)
+                {
                     return;
                 }
                 // Get the selected customer ID
