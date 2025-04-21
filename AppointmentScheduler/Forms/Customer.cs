@@ -172,11 +172,11 @@ namespace AppointmentScheduler.Forms
             }
             catch (DatabaseException ex)
             {
-                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show("An error occurred while deleting the customer: " + ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while saving the customer: " + ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
