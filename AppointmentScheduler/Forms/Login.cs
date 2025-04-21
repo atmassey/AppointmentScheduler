@@ -36,7 +36,7 @@ namespace AppointmentScheduler.Forms
                 }
                 Database db = new Database();
                 db.Login(username, password);
-                Database.CurrentUser = username;
+                GlobalConst.CurrentUser = username;
                 Main main = new Main();
                 main.Show();
                 this.Hide();

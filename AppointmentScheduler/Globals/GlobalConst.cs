@@ -12,5 +12,6 @@ namespace AppointmentScheduler.Globals
         public const string DbError = "Database Error";
         public const string ArgError = "Argument Error";
         public const string GenericError = "Generic Error";
+        public static string CurrentUser { get; set; } = string.Empty;
     }
 }

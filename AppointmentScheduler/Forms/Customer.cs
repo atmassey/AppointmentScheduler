@@ -50,7 +50,7 @@ namespace AppointmentScheduler.Forms
         private void Customer_Load(object sender, EventArgs e)
         {
             ComponentHelper.InitializeDataGrid(CustomerGrid);
-            CurrentUser.Text = "Current User: " + Database.CurrentUser;
+            CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
             // Load customer data into the DataGridView
             Database db = new Database();
             // Get the data from the database

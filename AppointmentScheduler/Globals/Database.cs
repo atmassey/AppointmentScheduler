@@ -18,7 +18,6 @@ namespace AppointmentScheduler.Globals
         public static string DatabaseName = "client_schedule";
         public static string Username = "sqlUser";
         public static string Password = "Passw0rd!";
-        public static string CurrentUser { get; set; } = "";
 
         // Query strings
         private const string LoginQuery = "SELECT userName, password FROM user WHERE userName = @username AND password = @password";
@@ -376,9 +375,9 @@ namespace AppointmentScheduler.Globals
                     {
                         new MySqlParameter("@country", country.CountryName),
                         new MySqlParameter("@createDate", DateTime.Now),
-                        new MySqlParameter("@createdBy", CurrentUser),
+                        new MySqlParameter("@createdBy", GlobalConst.CurrentUser),
                         new MySqlParameter("@lastUpdate", DateTime.Now),
-                        new MySqlParameter("@lastUpdateBy", CurrentUser)
+                        new MySqlParameter("@lastUpdateBy", GlobalConst.CurrentUser)
                     };
                     MySqlCommand countryCmd = newQuery(conn, InsertCountryQuery, countryParameters);
                     if (conn.State != ConnectionState.Open)
@@ -402,9 +401,9 @@ namespace AppointmentScheduler.Globals
                         new MySqlParameter("@city", city.CityName),
                         new MySqlParameter("@countryId", countryId),
                         new MySqlParameter("@createdDate", DateTime.Now),
-                        new MySqlParameter("@createdBy", CurrentUser),
+                        new MySqlParameter("@createdBy", GlobalConst.CurrentUser),
                         new MySqlParameter("@lastUpdate", DateTime.Now),
-                        new MySqlParameter("@lastUpdatedBy", CurrentUser)
+                        new MySqlParameter("@lastUpdatedBy", GlobalConst.CurrentUser)
                     };
                     MySqlCommand cityCmd = newQuery(conn, InsertCityQuery, cityParameters);
                     if (conn.State != ConnectionState.Open)
@@ -428,9 +427,9 @@ namespace AppointmentScheduler.Globals
                     new MySqlParameter("@phone", address.phone),
                     new MySqlParameter("@cityId", cityId),
                     new MySqlParameter("@createDate", DateTime.Now),
-                    new MySqlParameter("@createdBy", CurrentUser),
+                    new MySqlParameter("@createdBy", GlobalConst.CurrentUser),
                     new MySqlParameter("@lastUpdate", DateTime.Now),
-                    new MySqlParameter("@lastUpdateBy", CurrentUser)
+                    new MySqlParameter("@lastUpdateBy", GlobalConst.CurrentUser)
                 };
                 MySqlCommand addressCmd = newQuery(conn, InsertAddressQuery, addressParameters);
                 if (conn.State != ConnectionState.Open)
@@ -451,9 +450,9 @@ namespace AppointmentScheduler.Globals
                     new MySqlParameter("@addressId", addressId),
                     new MySqlParameter("@active", customer.Active),
                     new MySqlParameter("@createDate", DateTime.Now),
-                    new MySqlParameter("@createdBy", CurrentUser),
+                    new MySqlParameter("@createdBy", GlobalConst.CurrentUser),
                     new MySqlParameter("@lastUpdate", DateTime.Now),
-                    new MySqlParameter("@lastUpdateBy", CurrentUser)
+                    new MySqlParameter("@lastUpdateBy", GlobalConst.CurrentUser)
                 };
                 MySqlCommand customerCmd = newQuery(conn, InsertCustomerQuery, customerParameters);
                 if (conn.State != ConnectionState.Open)
