@@ -21,7 +21,7 @@ namespace AppointmentScheduler
         private void Main_Load(object sender, EventArgs e)
         {
             // Set the current date and time in the status strip
-            CurrentUser.Text = "Current User: " + Database.CurrentUser;
+            CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
         }
         private void MainForm_Closed(object sender, FormClosedEventArgs e)
         {

@@ -47,7 +47,7 @@ namespace AppointmentScheduler.Forms
         }
         private void Reports_Load(object sender, EventArgs e)
         {
-            CurrentUser.Text = "Current User: " + Database.CurrentUser;
+            CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
         }
     }
 }

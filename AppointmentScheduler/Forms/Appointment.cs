@@ -48,7 +48,11 @@ namespace AppointmentScheduler.Forms
         private void Appointment_Load(object sender, EventArgs e)
         {
             CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
+            // Initialize the datagrid
+            ComponentHelper.InitializeDataGrid(AppointmentGrid);
+            Database db = new Database();
+            var dt = db.GetAllAppointments();
+            AppointmentGrid.DataSource = dt;
         }
-
     }
 }

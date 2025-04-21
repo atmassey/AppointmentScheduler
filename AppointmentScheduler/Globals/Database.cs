@@ -71,6 +71,9 @@ namespace AppointmentScheduler.Globals
             VALUES (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
         private const string RemoveCustomerQuery =
             @"DELETE FROM customer WHERE customerId = @customerId";
+        private const string GetAppointmentQuery =
+            @"SELECT appointmentId, customerId, userId, start, end, title, description, location, contact, type, url FROM appointment";
+
 
         public static string ConnectionString
         {
@@ -493,6 +496,32 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error removing customer: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public DataTable GetAllAppointments()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, GetAppointmentQuery, null);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving appointments: " + ex.Message);
             }
             finally
             {

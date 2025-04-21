@@ -15,6 +15,12 @@ namespace AppointmentScheduler.Globals
         {
             dg.ClearSelection();
             dg.ColumnHeadersDefaultCellStyle.SelectionBackColor = dg.ColumnHeadersDefaultCellStyle.BackColor;
+            dg.EnableHeadersVisualStyles = false;
+            dg.MultiSelect = false;
+            dg.RowHeadersVisible = false;
+            dg.AllowUserToAddRows = false;
+            dg.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dg.RowsDefaultCellStyle.SelectionBackColor = Color.LightBlue;
         }
     }
