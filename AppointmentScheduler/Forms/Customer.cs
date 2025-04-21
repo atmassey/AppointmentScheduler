@@ -204,16 +204,16 @@ namespace AppointmentScheduler.Forms
                 customer.Name = CustomerName.Text;
                 customer.Active = isActive;
                 // Create a new address object
-                Models.Address address = new Models.Address();
+                Address address = new Address();
                 address.Address1 = Address.Text;
                 address.Address2 = AddressTwo.Text;
                 address.postalCode = PostalCode.Text;
                 address.phone = Phone.Text;
                 // Create a new city object
-                Models.City city = new Models.City();
+                City city = new City();
                 city.CityName = City.Text;
                 // Create a new country object
-                Models.Country country = new Models.Country();
+                Country country = new Country();
                 country.CountryName = Country.Text;
                 // Add the customer to the database
                 Database db = new Database();
