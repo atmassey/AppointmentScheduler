@@ -29,6 +29,8 @@ namespace AppointmentScheduler.Globals
             JOIN city ci ON ci.cityId = a.cityId
             JOIN country co ON co.countryId = ci.countryId
             ORDER BY c.customerId ASC";
+        private const string AllCustomerNameQuery =
+            @"SELECT customerId, customerName FROM customer";
         // Query to update customer by customerId
         private const string UpdateCustomerQuery =
            @"UPDATE customer c
@@ -522,6 +524,39 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error retrieving appointments: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public List<Customer> GetCustomerNames()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, AllCustomerNameQuery, null);
+                conn.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Customer> customers = new List<Customer>();
+                while (reader.Read())
+                {
+                    Customer customer = new Customer
+                    {
+                        Name = reader["customerName"].ToString()
+                    };
+                    customers.Add(customer);
+                }
+                return customers;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving customer names: " + ex.Message);
             }
             finally
             {
