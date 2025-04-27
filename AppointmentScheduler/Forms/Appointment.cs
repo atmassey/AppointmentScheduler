@@ -56,8 +56,8 @@ namespace AppointmentScheduler.Forms
             // Initialize the customer dropdown
             var customerDt = db.GetAllCustomers();
             CustomerDropdown.DataSource = customerDt;
-            CustomerDropdown.DisplayMember = "customerName";
-            CustomerDropdown.ValueMember = "customerId";
+            CustomerDropdown.DisplayMember = GlobalConst.CustomerName;
+            CustomerDropdown.ValueMember = GlobalConst.CustomerId;
         }
     }
 }
