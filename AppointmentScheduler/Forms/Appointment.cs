@@ -23,8 +23,8 @@ namespace AppointmentScheduler.Forms
             Database db = new Database();
             var dt = db.GetAllCustomers();
             CustomerDropdown.DataSource = dt;
-            CustomerDropdown.DisplayMember = "customerName";
-            CustomerDropdown.ValueMember = "customerID";
+            CustomerDropdown.DisplayMember = GlobalConst.CustomerName;
+            CustomerDropdown.ValueMember = GlobalConst.CustomerId;
         }
         private void customerToolStripMenuItem_Click(object sender, EventArgs e)
         {
