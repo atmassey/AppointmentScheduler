@@ -53,11 +53,18 @@ namespace AppointmentScheduler.Forms
             Database db = new Database();
             var dt = db.GetAllAppointments();
             AppointmentGrid.DataSource = dt;
-            // Initialize the customer dropdown
-            var customerDt = db.GetAllCustomers();
-            CustomerDropdown.DataSource = customerDt;
-            CustomerDropdown.DisplayMember = GlobalConst.CustomerName;
-            CustomerDropdown.ValueMember = GlobalConst.CustomerId;
+        }
+        private void CustomerDropdown_DropDown(object sender, EventArgs e)
+        {
+            if (CustomerDropdown.Items.Count == 0)
+            {
+                // Populate the customer dropdown with customer names
+                Database db = new Database();
+                var dt = db.GetAllCustomers();
+                CustomerDropdown.DataSource = dt;
+                CustomerDropdown.DisplayMember = "CustomerName";
+                CustomerDropdown.ValueMember = "CustomerID";
+            }
         }
     }
 }

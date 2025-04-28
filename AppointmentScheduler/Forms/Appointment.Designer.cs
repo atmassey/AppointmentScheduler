@@ -133,6 +133,7 @@
             this.CustomerDropdown.Name = "CustomerDropdown";
             this.CustomerDropdown.Size = new System.Drawing.Size(349, 21);
             this.CustomerDropdown.TabIndex = 3;
+            this.CustomerDropdown.DropDown += new System.EventHandler(this.CustomerDropdown_DropDown);
             // 
             // CustomerLabel
             // 
