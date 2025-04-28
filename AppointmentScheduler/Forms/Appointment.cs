@@ -17,6 +17,15 @@ namespace AppointmentScheduler.Forms
         {
             InitializeComponent();
         }
+        private void initializeCustomerDropdown()
+        {
+            // Populate the customer dropdown with customer names
+            Database db = new Database();
+            var dt = db.GetAllCustomers();
+            CustomerDropdown.DataSource = dt;
+            CustomerDropdown.DisplayMember = "customerName";
+            CustomerDropdown.ValueMember = "customerID";
+        }
         private void customerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -59,11 +68,7 @@ namespace AppointmentScheduler.Forms
             if (CustomerDropdown.Items.Count == 0)
             {
                 // Populate the customer dropdown with customer names
-                Database db = new Database();
-                var dt = db.GetAllCustomers();
-                CustomerDropdown.DataSource = dt;
-                CustomerDropdown.DisplayMember = "CustomerName";
-                CustomerDropdown.ValueMember = "CustomerID";
+                initializeCustomerDropdown();
             }
         }
     }
