@@ -119,8 +119,8 @@ namespace AppointmentScheduler.Globals
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    string userName = reader["userName"].ToString();
-                    string passWord = reader["password"].ToString();
+                    string userName = reader[GlobalConst.UserName].ToString();
+                    string passWord = reader[GlobalConst.Password].ToString();
                     if (userName == username && passWord == password)
                     {
                         return;
@@ -242,7 +242,7 @@ namespace AppointmentScheduler.Globals
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    int cityId = Convert.ToInt32(reader["cityId"]);
+                    int cityId = Convert.ToInt32(reader[GlobalConst.CityId]);
                     return cityId;
                 }
                 return 0;
@@ -312,7 +312,7 @@ namespace AppointmentScheduler.Globals
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    int countryId = Convert.ToInt32(reader["countryId"]);
+                    int countryId = Convert.ToInt32(reader[GlobalConst.CountryId]);
                     return countryId;
                 }
                 return 0;
@@ -548,7 +548,7 @@ namespace AppointmentScheduler.Globals
                 {
                     Customer customer = new Customer
                     {
-                        Name = reader["customerName"].ToString()
+                        Name = reader[GlobalConst.CustomerName].ToString()
                     };
                     customers.Add(customer);
                 }
