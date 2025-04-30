@@ -8,17 +8,28 @@ namespace AppointmentScheduler.Globals
 {
     public static class GlobalConst
     {
+        // Constants for errors
         public const string LoginError = "Login Error";
         public const string DbError = "Database Error";
         public const string ArgError = "Argument Error";
         public const string GenericError = "Generic Error";
+        // Constants for database queries
         public const string CustomerName = "customerName";
         public const string CustomerId = "customerId";
         public const string CountryId = "countryId";
         public const string CityId = "cityId";
-        // Login
+        // Login Constants
         public const string UserName = "userName";
         public const string Password = "password";
+        // Query parameter constants
+        public const string AddressParameter = "@address";
+        public const string Address2Parameter = "@address2";
+        public const string CityParameter = "@city";
+        public const string CountryParameter = "@country";
+        public const string UsernameParameter = "@username";
+        public const string PasswordParameter = "@password";
+        public const string PostalCodeParameter = "@postalCode";
+        public const string PhoneParameter = "@phone";
         public static string CurrentUser { get; set; } = string.Empty;
     }
 }
