@@ -71,5 +71,39 @@ namespace AppointmentScheduler.Forms
                 initializeCustomerDropdown();
             }
         }
+        private void checkAppointmentTime(DateTime start, DateTime end)
+        {
+            // Convert the start and end times to UTC
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(start, localZone);
+            DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(end, localZone);
+            // Check if the start time is before the end time
+            if (start >= end)
+            {
+                MessageBox.Show("Start time must be before end time.");
+                return;
+            }
+            // Check if the appointment is within business hours (9 AM to 5 PM) EST
+            DateTime businessStart = new DateTime(start.Year, start.Month, start.Day, 9, 0, 0);
+            DateTime businessEnd = new DateTime(start.Year, start.Month, start.Day, 17, 0, 0);
+            if (start < businessStart || end > businessEnd)
+            {
+                MessageBox.Show("Appointment must be within business hours (9 AM to 5 PM EST).");
+                return;
+            }
+            // Check if the appointment overlaps with existing appointments
+            Database db = new Database();
+            var dt = db.GetAllAppointments();
+            foreach (DataRow row in dt.Rows)
+            {
+                DateTime existingStart = Convert.ToDateTime(row[GlobalConst.AppointmentStart]);
+                DateTime existingEnd = Convert.ToDateTime(row[GlobalConst.AppointmentEnd]);
+                if ((start >= existingStart && start < existingEnd) || (end > existingStart && end <= existingEnd))
+                {
+                    MessageBox.Show("Appointment time overlaps with an existing appointment.");
+                    return;
+                }
+            }
+        }
     }
 }

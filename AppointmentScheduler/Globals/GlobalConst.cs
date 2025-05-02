@@ -21,6 +21,9 @@ namespace AppointmentScheduler.Globals
         // Login Constants
         public const string UserName = "userName";
         public const string Password = "password";
+        // Appointment Constants
+        public const string AppointmentStart = "start";
+        public const string AppointmentEnd = "end";
         // Query parameter constants
         public const string AddressParameter = "@address";
         public const string Address2Parameter = "@address2";
