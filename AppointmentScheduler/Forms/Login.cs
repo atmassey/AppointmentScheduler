@@ -25,6 +25,7 @@ namespace AppointmentScheduler.Forms
         }
         private void LoginBtn_Click(object sender, EventArgs e)
         {
+            Globals.Logger logger = new Globals.Logger();
             try
             {
                 string username = LoginUsername.Text;
@@ -36,10 +37,16 @@ namespace AppointmentScheduler.Forms
                 }
                 Database db = new Database();
                 db.Login(username, password);
+                // Log the successful login
+                logger.NewLogEntry($"User {username} logged in successfully.", Globals.Logger.EntryType.INFO);
                 GlobalConst.CurrentUser = username;
                 Main main = new Main();
                 main.Show();
                 this.Hide();
+            }
+            catch (LoggerException ex)
+            {
+                MessageBox.Show("Failed to log message: " + ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (LoginException ex)
             {

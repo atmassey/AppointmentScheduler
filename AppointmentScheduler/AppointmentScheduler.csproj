@@ -147,6 +147,8 @@
     <Compile Include="Globals\Database.cs" />
     <Compile Include="Globals\DatabaseException.cs" />
     <Compile Include="Globals\GlobalConst.cs" />
+    <Compile Include="Globals\Logger.cs" />
+    <Compile Include="Globals\LoggerException.cs" />
     <Compile Include="Globals\LoginException.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Appointment.cs" />
