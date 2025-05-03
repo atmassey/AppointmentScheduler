@@ -17,6 +17,15 @@ namespace AppointmentScheduler.Forms
         {
             InitializeComponent();
         }
+        public Dictionary<String, int> GetReportTypes()
+        {   var RepoortTypes = new Dictionary<String, int>();
+            RepoortTypes.Add("Appointment Type By Month", 1);
+            RepoortTypes.Add("User Schedule", 2);
+            RepoortTypes.Add("Appointments By Customer", 3);
+
+            return RepoortTypes;
+
+        }
         private void appointmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();

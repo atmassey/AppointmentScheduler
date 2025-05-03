@@ -34,5 +34,13 @@ namespace AppointmentScheduler.Globals
         public const string PostalCodeParameter = "@postalCode";
         public const string PhoneParameter = "@phone";
         public static string CurrentUser { get; set; } = string.Empty;
+
+        // Report Types
+        public enum ReportType
+        {
+            AppointmentTypeByMonth = 1,
+            UserSchedule = 2,
+            AppointmentsByCustomer = 3
+        }
     }
 }
