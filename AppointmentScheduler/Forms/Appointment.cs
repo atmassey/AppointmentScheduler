@@ -103,14 +103,19 @@ namespace AppointmentScheduler.Forms
                 // Set the date of the start and end times
                 start = new DateTime(date.Year, date.Month, date.Day, start.Hour, start.Minute, start.Second);
                 end = new DateTime(date.Year, date.Month, date.Day, end.Hour, end.Minute, end.Second);
+                // Convert to UTC
+                // Convert the start and end times to UTC
+                TimeZoneInfo localZone = TimeZoneInfo.Local;
+                DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(start, localZone);
+                DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(end, localZone);
                 // Create a new appointment object
                 Models.Appointment appointment = new Models.Appointment
                 {
                     Title = TitleField.Text,
                     Description = DescriptionField.Text,
                     Type = TypeDropdown.Text,
-                    Start = start,
-                    End = end,
+                    Start = utcStart,
+                    End = utcEnd,
                     customerId = Convert.ToInt32(CustomerDropdown.SelectedValue),
                     Url = URLField.Text,
                 };
@@ -192,14 +197,19 @@ namespace AppointmentScheduler.Forms
             // Set the date of the start and end times
             start = new DateTime(date.Year, date.Month, date.Day, start.Hour, start.Minute, start.Second);
             end = new DateTime(date.Year, date.Month, date.Day, end.Hour, end.Minute, end.Second);
-            // Create a new appointment object
-            Models.Appointment appointment = new Models.Appointment
+            // Convert to UTC
+            // Convert the start and end times to UTC
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(start, localZone);
+            DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(end, localZone);
+                // Create a new appointment object
+                Models.Appointment appointment = new Models.Appointment
             {
                 Title = TitleField.Text,
                 Description = DescriptionField.Text,
                 Type = TypeDropdown.Text,
-                Start = start,
-                End = end,
+                Start = utcStart,
+                End = utcEnd,
                 customerId = Convert.ToInt32(CustomerDropdown.SelectedValue),
                 Url = URLField.Text,
                 CreatedDate = DateTime.Now,
@@ -251,6 +261,11 @@ namespace AppointmentScheduler.Forms
                 // Populate the customer dropdown with customer names
                 initializeCustomerDropdown();
             }
+            // Get the local times
+            DateTime startUTC = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["start"].Value);
+            DateTime endUTC = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["end"].Value);
+            DateTime startLocal = startUTC.ToLocalTime();
+            DateTime endLocal = endUTC.ToLocalTime();
             // Display the selected information
             DataGridViewRow selectedRow = AppointmentGrid.Rows[e.RowIndex];
             TitleField.Text = selectedRow.Cells["title"].Value.ToString();
@@ -261,8 +276,9 @@ namespace AppointmentScheduler.Forms
             int index = TypeDropdown.FindString(typeDropdownValue);
             // Set the selected index
             TypeDropdown.SelectedIndex = index;
-            StartTime.Value = Convert.ToDateTime(selectedRow.Cells["start"].Value);
-            EndTime.Value = Convert.ToDateTime(selectedRow.Cells["end"].Value);
+            // Populate the start and end time fields with the local times
+            StartTime.Value = startLocal;
+            EndTime.Value = endLocal;
             // Set the selected customer ID
             int customerId = Convert.ToInt32(selectedRow.Cells["customerId"].Value);
             CustomerDropdown.SelectedValue = customerId;
@@ -270,10 +286,6 @@ namespace AppointmentScheduler.Forms
         }
         private void checkAppointmentTime(DateTime start, DateTime end)
         {
-            // Convert the start and end times to UTC
-            TimeZoneInfo localZone = TimeZoneInfo.Local;
-            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(start, localZone);
-            DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(end, localZone);
             // Check if the start time is before the end time
             if (start >= end)
             {

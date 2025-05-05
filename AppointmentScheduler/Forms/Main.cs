@@ -82,6 +82,7 @@ namespace AppointmentScheduler
                 DataTable dt = db.GetDailyAppointments(month, year, day);
                 CalendarView.DataSource = dt;
             }
+            CalendarView.ClearSelection();
         }
     }
 }
