@@ -25,16 +25,17 @@ namespace AppointmentScheduler.Forms
             dt.Columns.Add("Report ID", typeof(int));
             dr = dt.NewRow();
             dr["Report Type"] = "Appointment Type by Month";
-            dr["Report ID"] = (int)GlobalConst.ReportType.AppointmentTypeByMonth;
+            dr["Report ID"] = GlobalConst.AppointmentTypeByMonth;
             dt.Rows.Add(dr);
             dr = dt.NewRow();
             dr["Report Type"] = "User Schedule";
-            dr["Report ID"] = (int)GlobalConst.ReportType.UserSchedule;
+            dr["Report ID"] = GlobalConst.UserSchedule;
             dt.Rows.Add(dr);
             dr = dt.NewRow();
             dr["Report Type"] = "Appointments by Customer";
-            dr["Report ID"] = (int)GlobalConst.ReportType.AppointmentsByCustomer;
+            dr["Report ID"] = GlobalConst.AppointmentsByCustomer;
             dt.Rows.Add(dr);
+
             return dt;
         }
         private void appointmentToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,11 +69,12 @@ namespace AppointmentScheduler.Forms
         private void Reports_Load(object sender, EventArgs e)
         {
             CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
+            ComponentHelper.InitializeDataGrid(ReportGrid);
         }
         private void ReportDropdown_DropDown(object sender, EventArgs e)
         {
             // Check if the report dropdown is empty before populating it
-            if (ReportDropdown.Items.Count == 0)
+            if (ReportDropdown.DataSource == null)
             {
                 // Populate the report dropdown with report types
                 ReportDropdown.DataSource = GetReportTypes();
@@ -81,4 +83,4 @@ namespace AppointmentScheduler.Forms
             }
         }
     }
-}
+ }

@@ -93,6 +93,51 @@ namespace AppointmentScheduler.Globals
         private const string GetAppointmentsDaily =
             @"SELECT appointmentId, customerId, userId, start, end, title, description, location, contact, type, url FROM appointment
             WHERE DAY(start) = @day AND MONTH(start) = @month AND YEAR(start) = @year";
+        private const string GetAppointmentsCountByMonth =
+            @"SELECT 
+                DATE_FORMAT(a.start, '%Y-%m') AS Month, 
+                a.type AS AppointmentType,
+                COUNT(a.appointmentId) AS Total        
+            FROM 
+                appointment a
+            GROUP BY 
+                Month, AppointmentType
+            ORDER BY 
+                Month, AppointmentType";
+        private const string GetScheduleForUser =
+                @"SELECT 
+                u.userName,
+                a.appointmentId, 
+                a.start, 
+                a.end, 
+                a.title, 
+                a.description, 
+                a.location, 
+                a.contact, 
+                a.type, 
+                a.url
+            FROM 
+                appointment a
+            JOIN 
+                user u ON a.userId = u.userId
+            ORDER BY 
+                a.start";
+        private const string GetAppointmentsByCustomer =
+            @"SELECT
+                c.customerName,
+                a.appointmentId, 
+                a.start, 
+                a.end, 
+                a.title, 
+                a.description, 
+                a.location, 
+                a.contact, 
+                a.type, 
+                a.url
+            FROM 
+                appointment a
+            JOIN 
+                customer c ON a.customerId = c.customerId";
         public static string ConnectionString
         {
             get
@@ -765,6 +810,84 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error retrieving daily appointments: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public DataTable GetAppointmentCountByMonth()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, GetAppointmentsCountByMonth, null);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving appointment count by month: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public DataTable GetScheduleForUsers()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, GetScheduleForUser, null);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving schedule for user: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public DataTable GetAppointmentsByCustomers()
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, GetAppointmentsByCustomer, null);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving appointments by customer: " + ex.Message);
             }
             finally
             {

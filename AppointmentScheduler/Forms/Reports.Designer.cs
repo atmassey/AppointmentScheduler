@@ -110,16 +110,17 @@
             // ReportDropdown
             // 
             this.ReportDropdown.FormattingEnabled = true;
-            this.ReportDropdown.Location = new System.Drawing.Point(326, 64);
+            this.ReportDropdown.Location = new System.Drawing.Point(318, 84);
             this.ReportDropdown.Name = "ReportDropdown";
             this.ReportDropdown.Size = new System.Drawing.Size(403, 21);
             this.ReportDropdown.TabIndex = 3;
             this.ReportDropdown.DropDown += new System.EventHandler(this.ReportDropdown_DropDown);
+            this.ReportDropdown.SelectedIndexChanged += new System.EventHandler(this.ReportDropdown_SelectionIndexChanged);
             // 
             // ReportLabel
             // 
             this.ReportLabel.AutoSize = true;
-            this.ReportLabel.Location = new System.Drawing.Point(278, 67);
+            this.ReportLabel.Location = new System.Drawing.Point(315, 68);
             this.ReportLabel.Name = "ReportLabel";
             this.ReportLabel.Size = new System.Drawing.Size(31, 13);
             this.ReportLabel.TabIndex = 4;

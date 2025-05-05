@@ -38,11 +38,9 @@ namespace AppointmentScheduler.Globals
         // Appointment Type Constants
         public static readonly string[] AppointmentTypes = new string[] { "Follow-Up", "Consultation", "Presentation", "Scrum" };
         // Report Types  
-        public enum ReportType
-        {
-            AppointmentTypeByMonth = 1,
-            UserSchedule = 2,
-            AppointmentsByCustomer = 3
-        }
+        public const int AppointmentTypeByMonth = 0;
+        public const int UserSchedule = 1;
+        public const int AppointmentsByCustomer = 2;
+
     }
 }
