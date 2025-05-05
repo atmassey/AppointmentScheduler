@@ -85,6 +85,8 @@ namespace AppointmentScheduler.Globals
             VALUES (@customerId, @userId, @start, @end, @title, @description, @location, @contact, @type, @url, @createDate, @createdBy, @lastUpdateBy)";
         private const string GetUserIdQuery =
             @"SELECT userId FROM user WHERE userName = @username";
+        private const string RemoveAppointmentQuery =
+            @"DELETE FROM appointment WHERE appointmentId = @appointmentId";
         public static string ConnectionString
         {
             get
@@ -667,6 +669,33 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error inserting appointment: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void RemoveAppointment(int appointmentId)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                var parameters = new List<MySqlParameter>
+                {
+                    new MySqlParameter("@appointmentId", appointmentId)
+                };
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, RemoveAppointmentQuery, parameters);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error removing appointment: " + ex.Message);
             }
             finally
             {

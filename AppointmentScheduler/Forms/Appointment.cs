@@ -159,6 +159,16 @@ namespace AppointmentScheduler.Forms
                 MessageBox.Show("Please select an appointment to delete.");
                 return;
             }
+            // Get the selected appointment ID
+            int appointmentId = Convert.ToInt32(AppointmentGrid.SelectedRows[0].Cells["appointmentId"].Value);
+            // Delete the appointment from the database
+            Database db = new Database();
+            db.RemoveAppointment(appointmentId);
+            // Refresh the appointment grid
+            var dt = db.GetAllAppointments();
+            AppointmentGrid.DataSource = dt;
+            // Clear the fields
+            ClearFields();
         }
         private void AddBtn_Click(object sender, EventArgs e)
         {
@@ -269,6 +279,7 @@ namespace AppointmentScheduler.Forms
             {
                 throw new ArgumentException("Start time must be before endtime");
             }
+            // Check if the appointment is within business hours (9 AM to 5 PM EST)
             TimeZoneInfo estZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             DateTime estStart = TimeZoneInfo.ConvertTime(start, estZone);
             DateTime estEnd = TimeZoneInfo.ConvertTime(end, estZone);
@@ -304,6 +315,11 @@ namespace AppointmentScheduler.Forms
             if (start.DayOfWeek == DayOfWeek.Saturday || start.DayOfWeek == DayOfWeek.Sunday)
             {
                 throw new ArgumentException("Appointment can not be on the weekend");
+            }
+            // Check if the appointment is in the past
+            if (start < DateTime.Now)
+            {
+                throw new ArgumentException("Appointment can not be in the past");
             }
         }
         private void ClearFields()
