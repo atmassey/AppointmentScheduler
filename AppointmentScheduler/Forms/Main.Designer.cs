@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.CalendarView = new System.Windows.Forms.DataGridView();
             this.DailyRadio = new System.Windows.Forms.RadioButton();
             this.MonthlyRadio = new System.Windows.Forms.RadioButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -41,29 +41,30 @@
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.CurrentUser = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CalendarView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // monthCalendar1
+            // Calendar
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(12, 34);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 4;
+            this.Calendar.Location = new System.Drawing.Point(12, 34);
+            this.Calendar.Name = "Calendar";
+            this.Calendar.TabIndex = 4;
+            this.Calendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateChanged);
             // 
             // notifyIcon1
             // 
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // dataGridView1
+            // CalendarView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(257, 34);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(786, 606);
-            this.dataGridView1.TabIndex = 7;
+            this.CalendarView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CalendarView.Location = new System.Drawing.Point(257, 34);
+            this.CalendarView.Name = "CalendarView";
+            this.CalendarView.Size = new System.Drawing.Size(786, 606);
+            this.CalendarView.TabIndex = 7;
             // 
             // DailyRadio
             // 
@@ -75,6 +76,7 @@
             this.DailyRadio.TabStop = true;
             this.DailyRadio.Text = "Daily";
             this.DailyRadio.UseVisualStyleBackColor = true;
+            this.DailyRadio.Click += new System.EventHandler(this.DailyRadio_CheckedChanged);
             // 
             // MonthlyRadio
             // 
@@ -86,6 +88,7 @@
             this.MonthlyRadio.TabStop = true;
             this.MonthlyRadio.Text = "Monthly";
             this.MonthlyRadio.UseVisualStyleBackColor = true;
+            this.MonthlyRadio.Click += new System.EventHandler(this.MonthlyRadio_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -151,15 +154,15 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MonthlyRadio);
             this.Controls.Add(this.DailyRadio);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.CalendarView);
+            this.Controls.Add(this.Calendar);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
             this.Text = "Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_Closed);
             this.Load += new System.EventHandler(this.Main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CalendarView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -170,9 +173,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar Calendar;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView CalendarView;
         private System.Windows.Forms.RadioButton DailyRadio;
         private System.Windows.Forms.RadioButton MonthlyRadio;
         private System.Windows.Forms.MenuStrip menuStrip1;

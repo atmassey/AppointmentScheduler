@@ -87,6 +87,12 @@ namespace AppointmentScheduler.Globals
             @"SELECT userId FROM user WHERE userName = @username";
         private const string RemoveAppointmentQuery =
             @"DELETE FROM appointment WHERE appointmentId = @appointmentId";
+        private const string GetAppointmentsMonthly =
+            @"SELECT appointmentId, customerId, userId, start, end, title, description, location, contact, type, url FROM appointment
+            WHERE MONTH(start) = @month AND YEAR(start) = @year";
+        private const string GetAppointmentsDaily =
+            @"SELECT appointmentId, customerId, userId, start, end, title, description, location, contact, type, url FROM appointment
+            WHERE DAY(start) = @day AND MONTH(start) = @month AND YEAR(start) = @year";
         public static string ConnectionString
         {
             get
@@ -377,7 +383,7 @@ namespace AppointmentScheduler.Globals
         {
             MySqlConnection conn = null;
             try
-            {   
+            {
                 conn = getConnection();
                 var parameters = new List<MySqlParameter>
                 {
@@ -706,5 +712,69 @@ namespace AppointmentScheduler.Globals
                 }
             }
         }
+        public DataTable GetMonthlyAppointments(int month, int year)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                var parameters = new List<MySqlParameter>
+                {
+                    new MySqlParameter("@month", month),
+                    new MySqlParameter("@year", year)
+                };
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, GetAppointmentsMonthly, parameters);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving monthly appointments: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public DataTable GetDailyAppointments(int month, int year, int day)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                var parameters = new List<MySqlParameter>
+                {
+                    new MySqlParameter("@month", month),
+                    new MySqlParameter("@year", year),
+                    new MySqlParameter("@day", day)
+                };
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, GetAppointmentsDaily, parameters);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving daily appointments: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
     }
+
 }

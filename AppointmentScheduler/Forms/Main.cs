@@ -22,6 +22,7 @@ namespace AppointmentScheduler
         {
             // Set the current date and time in the status strip
             CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
+            ComponentHelper.InitializeDataGrid(CalendarView);
         }
         private void MainForm_Closed(object sender, FormClosedEventArgs e)
         {
@@ -50,6 +51,37 @@ namespace AppointmentScheduler
             this.Hide();
             Reports reportForm = new Reports();
             reportForm.Show();
+        }
+        private void Calendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+           updateCalendarView();
+        }
+        private void MonthlyRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            updateCalendarView();
+        }
+        private void DailyRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            updateCalendarView();
+        }
+        private void updateCalendarView()
+        {
+            int month = Calendar.SelectionStart.Month;
+            int year = Calendar.SelectionStart.Year;
+            int day = Calendar.SelectionStart.Day;
+            if (MonthlyRadio.Checked)
+            {
+                
+                Database db = new Database();
+                DataTable dt = db.GetMonthlyAppointments(month, year);
+                CalendarView.DataSource = dt;
+            }
+            if (DailyRadio.Checked)
+            {
+                Database db = new Database();
+                DataTable dt = db.GetDailyAppointments(month, year, day);
+                CalendarView.DataSource = dt;
+            }
         }
     }
 }
