@@ -45,7 +45,7 @@ namespace AppointmentScheduler.Models
         {
             get
             {
-                if (_location.Length == 0)
+                if (_location == null)
                 {
                     _location = "Bowling Green, KY";
                 }
@@ -65,7 +65,7 @@ namespace AppointmentScheduler.Models
         {
             get
             {
-                if (_contact.Length == 0)
+                if (_contact == null)
                 {
                     _contact = "555-555-5555";
                 }
@@ -121,7 +121,22 @@ namespace AppointmentScheduler.Models
                 _createdBy = value.Trim();
             }
         }
-        public DateTime CreatedDate { get; set; }
+        private DateTime _createdDate;
+        public DateTime CreatedDate
+        {
+            get { return _createdDate; }
+            set 
+            {  
+                if (value != null)
+                {
+                    _createdDate = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Created Date cannot be null.");
+                }
+            }
+        }
         private string _lastUpdatedBy;
         public string LastUpdatedBy
         {

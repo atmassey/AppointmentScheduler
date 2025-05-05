@@ -40,6 +40,7 @@ namespace AppointmentScheduler.Forms
                 // Log the successful login
                 logger.Info($"User {username} logged in successfully.");
                 GlobalConst.CurrentUser = username;
+                GlobalConst.CurrentUserId = db.GetUserId(username);
                 Main main = new Main();
                 main.Show();
                 this.Hide();

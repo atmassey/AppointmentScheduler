@@ -147,6 +147,12 @@ namespace AppointmentScheduler.Forms
         }
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
+            //Prompt the user to confirm the add action
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this appointment?", "Confirm Add", MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
             if (AppointmentGrid.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select an appointment to delete.");
@@ -155,10 +161,66 @@ namespace AppointmentScheduler.Forms
         }
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TitleField.Text) || string.IsNullOrEmpty(DescriptionField.Text) || string.IsNullOrEmpty(TypeDropdown.Text) || string.IsNullOrEmpty(CustomerDropdown.Text))
+            try {
+            //Prompt the user to confirm the add action
+            DialogResult result = MessageBox.Show("Are you sure you want to add a new appointment?", "Confirm Add", MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+                if (string.IsNullOrEmpty(TitleField.Text) || string.IsNullOrEmpty(DescriptionField.Text) || string.IsNullOrEmpty(TypeDropdown.Text) || string.IsNullOrEmpty(CustomerDropdown.Text))
             {
                 MessageBox.Show("Please fill in all fields.");
                 return;
+            }
+            // Get the date and time values from the date time pickers
+            DateTime start = StartTime.Value;
+            DateTime end = EndTime.Value;
+            // Get the day of the appointmnet
+            DateTime date = DateSelector.Value;
+            // Set the date of the start and end times
+            start = new DateTime(date.Year, date.Month, date.Day, start.Hour, start.Minute, start.Second);
+            end = new DateTime(date.Year, date.Month, date.Day, end.Hour, end.Minute, end.Second);
+            // Create a new appointment object
+            Models.Appointment appointment = new Models.Appointment
+            {
+                Title = TitleField.Text,
+                Description = DescriptionField.Text,
+                Type = TypeDropdown.Text,
+                Start = start,
+                End = end,
+                customerId = Convert.ToInt32(CustomerDropdown.SelectedValue),
+                Url = URLField.Text,
+                CreatedDate = DateTime.Now,
+                CreatedBy = GlobalConst.CurrentUser,
+                LastUpdatedBy = GlobalConst.CurrentUser,
+                userId = GlobalConst.CurrentUserId,
+            };
+            // Check appointment time
+            checkAppointmentTime(appointment.Start, appointment.End);
+            // Add the appointment to the database
+            Database db = new Database();
+            db.InsertAppointment(appointment);
+            // Refresh the appointment grid
+            var dt = db.GetAllAppointments();
+            AppointmentGrid.DataSource = dt;
+            AppointmentGrid.ClearSelection();
+            // Clear the fields
+            ClearFields();
+            // Show success message
+            MessageBox.Show("Appointment added successfully.");
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (DatabaseException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while adding the appointment: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ClearBtn_Click(object sender, EventArgs e)

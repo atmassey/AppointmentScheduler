@@ -80,7 +80,11 @@ namespace AppointmentScheduler.Globals
             SET title = @title, description = @description, type = @type, url = @url,
                 start = @start, end = @end
             WHERE appointmentId = @appointmentId";
-
+        private const string InsertAppointmentQuery =
+            @"INSERT INTO appointment (customerId, userId, start, end, title, description, location, contact, type, url, createDate, createdBy, lastUpdateBy)
+            VALUES (@customerId, @userId, @start, @end, @title, @description, @location, @contact, @type, @url, @createDate, @createdBy, @lastUpdateBy)";
+        private const string GetUserIdQuery =
+            @"SELECT userId FROM user WHERE userName = @username";
         public static string ConnectionString
         {
             get
@@ -135,6 +139,39 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new LoginException("Login failed: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public int GetUserId(string username)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                var parameters = new List<MySqlParameter>
+                {
+                    new MySqlParameter("@username", username)
+                };
+                MySqlCommand cmd = newQuery(conn, GetUserIdQuery, parameters);
+                conn.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int userId = Convert.ToInt32(reader["userId"]);
+                    return userId;
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving user ID: " + ex.Message);
             }
             finally
             {
@@ -593,6 +630,43 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error updating appointment: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void InsertAppointment(Models.Appointment appointment)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                List<MySqlParameter> parameters = new List<MySqlParameter>();
+                parameters.Add(new MySqlParameter("@customerId", appointment.customerId));
+                parameters.Add(new MySqlParameter("@userId", appointment.userId));
+                parameters.Add(new MySqlParameter("@start", appointment.Start));
+                parameters.Add(new MySqlParameter("@end", appointment.End));
+                parameters.Add(new MySqlParameter("@title", appointment.Title));
+                parameters.Add(new MySqlParameter("@description", appointment.Description));
+                parameters.Add(new MySqlParameter("@location", appointment.Location));
+                parameters.Add(new MySqlParameter("@contact", appointment.Contact));
+                parameters.Add(new MySqlParameter("@type", appointment.Type));
+                parameters.Add(new MySqlParameter("@url", appointment.Url));
+                parameters.Add(new MySqlParameter("@createDate", appointment.CreatedDate));
+                parameters.Add(new MySqlParameter("@createdBy", appointment.CreatedBy));
+                parameters.Add(new MySqlParameter("@lastUpdateBy", appointment.LastUpdatedBy));
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, InsertAppointmentQuery, parameters);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error inserting appointment: " + ex.Message);
             }
             finally
             {
