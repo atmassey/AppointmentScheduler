@@ -38,7 +38,7 @@ namespace AppointmentScheduler.Forms
                 Database db = new Database();
                 db.Login(username, password);
                 // Log the successful login
-                logger.NewLogEntry($"User {username} logged in successfully.", Globals.Logger.EntryType.INFO);
+                logger.Info($"User {username} logged in successfully.");
                 GlobalConst.CurrentUser = username;
                 Main main = new Main();
                 main.Show();

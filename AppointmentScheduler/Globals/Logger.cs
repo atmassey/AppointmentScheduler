@@ -9,20 +9,32 @@ namespace AppointmentScheduler.Globals
 {
     public class Logger
     {
-        public enum EntryType
+        public void Debug(string message)
         {
-            DEBUG,
-            INFO,
-            WARNING,
-            ERROR,
-            FATAL
+            newLogEntry(message, "DEBUG");
         }
-        public void NewLogEntry(string message, EntryType type)
+        public void Info(string message)
+        {
+            newLogEntry(message, "INFO");
+        }
+        public void Warn(string message)
+        {
+            newLogEntry(message, "WARN");
+        }
+        public void Error(string message)
+        {
+            newLogEntry(message, "ERROR");
+        }
+        public void Fatal(string message)
+        {
+            newLogEntry(message, "FATAL");
+        }
+        private void newLogEntry(string message, string messageType)
         {
             try
             {
                 // Log the message with the specified type  
-                string logMessage = $"{DateTime.Now}: [{type.ToString()}] - {message}";
+                string logMessage = $"{DateTime.Now}: [{messageType}] - {message}";
                 // Here you would typically write the logMessage to a file or a logging system  
                 File.AppendAllText("Login_History.txt", logMessage + Environment.NewLine);
             }
