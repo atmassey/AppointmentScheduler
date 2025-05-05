@@ -80,43 +80,52 @@ namespace AppointmentScheduler.Forms
                 ReportDropdown.DisplayMember = "Report Type";
                 ReportDropdown.ValueMember = "Report ID";
                 ReportDropdown.DataSource = GetReportTypes();
-                foreach (DataRowView row in ReportDropdown.Items)
-                {
-                    Console.WriteLine(row["Report Type"]);
-                    Console.WriteLine(row["Report ID"]);
-                }
             }
         }
         private void ReportDropdown_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            // Check the datasoucre of the dropdown
-            if (ReportDropdown.DataSource == null)
+            try
             {
-                return;
-            }
-            int selectedReportId = (int)ReportDropdown.SelectedValue;
-            Database db = new Database();
-            DataTable dt = new DataTable();
-            // Get the selected report type
-            switch (selectedReportId)
+                // Check the data source of the dropdown
+                if (ReportDropdown.DataSource == null)
+                {
+                    return;
+                }
+
+                int selectedReportId = (int)ReportDropdown.SelectedValue;
+                Database db = new Database();
+                DataTable dt = new DataTable();
+
+                // Create a mapping of report IDs to actions using lambda expressions
+                var reportActions = new Dictionary<int, Action>
             {
-                case GlobalConst.AppointmentTypeByMonth:
-                    dt = db.GetAppointmentCountByMonth();
-                    ReportGrid.DataSource = dt;
-                    break;
-                case GlobalConst.UserSchedule:
-                    dt = db.GetScheduleForUsers();
-                    ReportGrid.DataSource = dt;
-                    break;
-                case GlobalConst.AppointmentsByCustomer:
-                    dt = db.GetAppointmentsByCustomers();
-                    ReportGrid.DataSource = dt;
-                    break;
-                default:
-                    MessageBox.Show("Invalid report type selected.");
-                    break;
+                { GlobalConst.AppointmentTypeByMonth, () => ReportGrid.DataSource = db.GetAppointmentCountByMonth() },
+                { GlobalConst.UserSchedule, () => ReportGrid.DataSource = db.GetScheduleForUsers() },
+                { GlobalConst.AppointmentsByCustomer, () => ReportGrid.DataSource = db.GetAppointmentsByCustomers() }
+            };
+
+                // Execute the corresponding action or show an error for an invalid ID
+                if (reportActions.TryGetValue(selectedReportId, out var action))
+                {
+                    action();
+                }
+                else
+                {
+                    throw new ArgumentNullException("Invalid report ID: " + selectedReportId);
+                }
             }
-            Console.WriteLine("Selected Report ID: " + selectedReportId);
+            catch (DatabaseException ex)
+            {
+                MessageBox.Show("Failed to retrieve report data: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while generating the report: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
