@@ -114,6 +114,7 @@
             this.ReportDropdown.Name = "ReportDropdown";
             this.ReportDropdown.Size = new System.Drawing.Size(403, 21);
             this.ReportDropdown.TabIndex = 3;
+            this.ReportDropdown.DropDown += new System.EventHandler(this.ReportDropdown_DropDown);
             // 
             // ReportLabel
             // 

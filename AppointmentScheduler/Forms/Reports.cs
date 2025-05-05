@@ -17,14 +17,25 @@ namespace AppointmentScheduler.Forms
         {
             InitializeComponent();
         }
-        public Dictionary<String, int> GetReportTypes()
-        {   var RepoortTypes = new Dictionary<String, int>();
-            RepoortTypes.Add("Appointment Type By Month", 1);
-            RepoortTypes.Add("User Schedule", 2);
-            RepoortTypes.Add("Appointments By Customer", 3);
-
-            return RepoortTypes;
-
+        public DataTable GetReportTypes()
+        {
+            DataRow dr = null;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Report Type", typeof(string));
+            dt.Columns.Add("Report ID", typeof(int));
+            dr = dt.NewRow();
+            dr["Report Type"] = "Appointment Type by Month";
+            dr["Report ID"] = (int)GlobalConst.ReportType.AppointmentTypeByMonth;
+            dt.Rows.Add(dr);
+            dr = dt.NewRow();
+            dr["Report Type"] = "User Schedule";
+            dr["Report ID"] = (int)GlobalConst.ReportType.UserSchedule;
+            dt.Rows.Add(dr);
+            dr = dt.NewRow();
+            dr["Report Type"] = "Appointments by Customer";
+            dr["Report ID"] = (int)GlobalConst.ReportType.AppointmentsByCustomer;
+            dt.Rows.Add(dr);
+            return dt;
         }
         private void appointmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -57,6 +68,13 @@ namespace AppointmentScheduler.Forms
         private void Reports_Load(object sender, EventArgs e)
         {
             CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
+        }
+        private void ReportDropdown_DropDown(object sender, EventArgs e)
+        {
+            // Populate the report dropdown with report types
+            ReportDropdown.DataSource = GetReportTypes();
+            ReportDropdown.DisplayMember = "Report Type";
+            ReportDropdown.ValueMember = "Report ID";
         }
     }
 }
