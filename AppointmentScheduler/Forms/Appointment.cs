@@ -148,7 +148,7 @@ namespace AppointmentScheduler.Forms
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             //Prompt the user to confirm the add action
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this appointment?", "Confirm Add", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this appointment?", "Confirm Delete", MessageBoxButtons.YesNo);
             if (result != DialogResult.Yes)
             {
                 return;
