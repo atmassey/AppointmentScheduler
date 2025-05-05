@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,14 @@ namespace AppointmentScheduler.Models
         public string
             Location
         {
-            get { return _location; }
+            get
+            {
+                if (_location.Length == 0)
+                {
+                    _location = "Bowling Green, KY";
+                }
+                return _location;
+            }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -55,7 +63,14 @@ namespace AppointmentScheduler.Models
         private string _contact;
         public string Contact
         {
-            get { return _contact; }
+            get
+            {
+                if (_contact.Length == 0)
+                {
+                    _contact = "555-555-5555";
+                }
+                return _contact;
+            }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))

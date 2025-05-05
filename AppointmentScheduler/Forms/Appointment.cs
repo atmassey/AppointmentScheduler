@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppointmentScheduler.Globals;
+using MySql.Data.MySqlClient;
 
 namespace AppointmentScheduler.Forms
 {
@@ -81,10 +82,67 @@ namespace AppointmentScheduler.Forms
         }
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            if (AppointmentGrid.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Please select an appointment to update.");
-                return;
+                if (AppointmentGrid.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Please select an appointment to update.");
+                    return;
+                }
+                if (string.IsNullOrEmpty(TitleField.Text) || string.IsNullOrEmpty(DescriptionField.Text) || string.IsNullOrEmpty(TypeDropdown.Text) || string.IsNullOrEmpty(CustomerDropdown.Text))
+                {
+                    MessageBox.Show("Please fill in all fields.");
+                    return;
+                }
+                // Get the date and time values from the date time pickers
+                DateTime start = StartTime.Value;
+                DateTime end = EndTime.Value;
+                // Get the day of the appointmnet
+                DateTime date = DateSelector.Value;
+                // Set the date of the start and end times
+                start = new DateTime(date.Year, date.Month, date.Day, start.Hour, start.Minute, start.Second);
+                end = new DateTime(date.Year, date.Month, date.Day, end.Hour, end.Minute, end.Second);
+                // Create a new appointment object
+                Models.Appointment appointment = new Models.Appointment
+                {
+                    Title = TitleField.Text,
+                    Description = DescriptionField.Text,
+                    Type = TypeDropdown.Text,
+                    Start = start,
+                    End = end,
+                    customerId = Convert.ToInt32(CustomerDropdown.SelectedValue),
+                    Url = URLField.Text,
+                };
+                // Check appointment time
+                checkAppointmentTime(appointment.Start, appointment.End);
+                // Get the selected appointment ID
+                int appointmentId = Convert.ToInt32(AppointmentGrid.SelectedRows[0].Cells["appointmentId"].Value);
+                // Update the appointment ID
+                appointment.Id = appointmentId;
+                // Update the appointment in the database
+                Database db = new Database();
+                // Update the appointment in the database
+                db.UpdateAppointment(appointment);
+                // Refresh the appointment grid
+                var dt = db.GetAllAppointments();
+                AppointmentGrid.DataSource = dt;
+                AppointmentGrid.ClearSelection();
+                // Clear the fields
+                ClearFields();
+                // Show success message
+                MessageBox.Show("Appointment updated successfully.");
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, GlobalConst.ArgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (DatabaseException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while saving the appointment: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void DeleteBtn_Click(object sender, EventArgs e)
@@ -103,6 +161,11 @@ namespace AppointmentScheduler.Forms
                 return;
             }
         }
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            // Clear all fields
+            ClearFields();
+        }
         private void AppointmentGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Initialize the dropdown lists if they are not already populated
@@ -115,6 +178,21 @@ namespace AppointmentScheduler.Forms
                 // Populate the customer dropdown with customer names
                 initializeCustomerDropdown();
             }
+            // Display the selected information
+            DataGridViewRow selectedRow = AppointmentGrid.Rows[e.RowIndex];
+            TitleField.Text = selectedRow.Cells["title"].Value.ToString();
+            DescriptionField.Text = selectedRow.Cells["description"].Value.ToString();
+            string typeDropdownValue = selectedRow.Cells["type"].Value.ToString();
+            // Get the index of the value
+            int index = TypeDropdown.FindString(typeDropdownValue);
+            // Set the selected index
+            TypeDropdown.SelectedIndex = index;
+            StartTime.Value = Convert.ToDateTime(selectedRow.Cells["start"].Value);
+            EndTime.Value = Convert.ToDateTime(selectedRow.Cells["end"].Value);
+            // Set the selected customer ID
+            int customerId = Convert.ToInt32(selectedRow.Cells["customerId"].Value);
+            CustomerDropdown.SelectedValue = customerId;
+            URLField.Text = selectedRow.Cells["url"].Value.ToString();
         }
         private void checkAppointmentTime(DateTime start, DateTime end)
         {
@@ -125,16 +203,14 @@ namespace AppointmentScheduler.Forms
             // Check if the start time is before the end time
             if (start >= end)
             {
-                MessageBox.Show("Start time must be before end time.");
-                return;
+                throw new ArgumentException("Start time must be before endtime");
             }
             // Check if the appointment is within business hours (9 AM to 5 PM) EST
             DateTime businessStart = new DateTime(start.Year, start.Month, start.Day, 9, 0, 0);
             DateTime businessEnd = new DateTime(start.Year, start.Month, start.Day, 17, 0, 0);
             if (start < businessStart || end > businessEnd)
             {
-                MessageBox.Show("Appointment must be within business hours (9 AM to 5 PM EST).");
-                return;
+                throw new ArgumentException("Start and end time must be within business hours");
             }
             // Check if the appointment overlaps with existing appointments
             Database db = new Database();
@@ -145,10 +221,26 @@ namespace AppointmentScheduler.Forms
                 DateTime existingEnd = Convert.ToDateTime(row[GlobalConst.AppointmentEnd]);
                 if ((start >= existingStart && start < existingEnd) || (end > existingStart && end <= existingEnd))
                 {
-                    MessageBox.Show("Appointment time overlaps with an existing appointment.");
-                    return;
+                    throw new ArgumentException("Appointment can not overlap other appointments");
                 }
             }
+            // Check if the appointment is during the week
+            if (start.DayOfWeek == DayOfWeek.Saturday || start.DayOfWeek == DayOfWeek.Sunday)
+            {
+                throw new ArgumentException("Appointment can not be on the weekend");
+            }
+        }
+        private void ClearFields()
+        {
+            // Clear all fields
+            TitleField.Clear();
+            DescriptionField.Clear();
+            TypeDropdown.SelectedIndex = -1;
+            StartTime.Value = DateTime.Now;
+            EndTime.Value = DateTime.Now;
+            CustomerDropdown.SelectedIndex = -1;
+            URLField.Clear();
+            AppointmentGrid.ClearSelection();
         }
     }
 }

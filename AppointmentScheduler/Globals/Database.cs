@@ -75,7 +75,11 @@ namespace AppointmentScheduler.Globals
             @"DELETE FROM customer WHERE customerId = @customerId";
         private const string GetAppointmentQuery =
             @"SELECT appointmentId, customerId, userId, start, end, title, description, location, contact, type, url FROM appointment";
-
+        private const string UpdateAppointmentQuery =
+            @"UPDATE appointment
+            SET title = @title, description = @description, type = @type, url = @url,
+                start = @start, end = @end
+            WHERE appointmentId = @appointmentId";
 
         public static string ConnectionString
         {
@@ -557,6 +561,38 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error retrieving customer names: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void UpdateAppointment(Models.Appointment appointment)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                List<MySqlParameter> parameters = new List<MySqlParameter>();
+                parameters.Add(new MySqlParameter("@appointmentId", appointment.Id));
+                parameters.Add(new MySqlParameter("@title", appointment.Title));
+                parameters.Add(new MySqlParameter("@description", appointment.Description));
+                parameters.Add(new MySqlParameter("@type", appointment.Type));
+                parameters.Add(new MySqlParameter("@start", appointment.Start));
+                parameters.Add(new MySqlParameter("@end", appointment.End));
+                parameters.Add(new MySqlParameter("@customerId", appointment.customerId));
+                parameters.Add(new MySqlParameter("@url", appointment.Url));
+                conn = getConnection();
+                MySqlCommand cmd = newQuery(conn, UpdateAppointmentQuery, parameters);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error updating appointment: " + ex.Message);
             }
             finally
             {

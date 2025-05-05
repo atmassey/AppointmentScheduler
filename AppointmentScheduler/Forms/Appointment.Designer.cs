@@ -56,7 +56,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.EndLabel = new System.Windows.Forms.Label();
             this.EndTime = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ClearBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AppointmentGrid)).BeginInit();
@@ -125,6 +125,7 @@
             this.AppointmentGrid.Name = "AppointmentGrid";
             this.AppointmentGrid.Size = new System.Drawing.Size(652, 555);
             this.AppointmentGrid.TabIndex = 2;
+            this.AppointmentGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AppointmentGrid_CellClick);
             // 
             // CustomerDropdown
             // 
@@ -305,21 +306,22 @@
             this.EndTime.Size = new System.Drawing.Size(349, 20);
             this.EndTime.TabIndex = 24;
             // 
-            // button1
+            // ClearBtn
             // 
-            this.button1.Location = new System.Drawing.Point(261, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 23);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "Clear Selection";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ClearBtn.Location = new System.Drawing.Point(261, 56);
+            this.ClearBtn.Name = "ClearBtn";
+            this.ClearBtn.Size = new System.Drawing.Size(105, 23);
+            this.ClearBtn.TabIndex = 29;
+            this.ClearBtn.Text = "Clear Selection";
+            this.ClearBtn.UseVisualStyleBackColor = true;
+            this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // Appointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 652);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.ClearBtn);
             this.Controls.Add(this.EndLabel);
             this.Controls.Add(this.EndTime);
             this.Controls.Add(this.label10);
@@ -388,6 +390,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label EndLabel;
         private System.Windows.Forms.DateTimePicker EndTime;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ClearBtn;
     }
 }

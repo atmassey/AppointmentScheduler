@@ -22,6 +22,8 @@ namespace AppointmentScheduler.Globals
             dg.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dg.RowsDefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dg.ReadOnly = true;
+            dg.AllowUserToResizeRows = false;
         }
     }
 }
