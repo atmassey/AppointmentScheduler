@@ -18,6 +18,7 @@ namespace AppointmentScheduler.Forms
         {
             InitializeComponent();
         }
+        private int? currentAppointmentId = null; // Nullable int to hold the appointment ID
         private void initializeCustomerDropdown()
         {
             // Populate the customer dropdown with customer names
@@ -243,6 +244,7 @@ namespace AppointmentScheduler.Forms
             // Display the selected information
             DataGridViewRow selectedRow = AppointmentGrid.Rows[e.RowIndex];
             TitleField.Text = selectedRow.Cells["title"].Value.ToString();
+            currentAppointmentId = Convert.ToInt32(selectedRow.Cells["appointmentId"].Value);
             DescriptionField.Text = selectedRow.Cells["description"].Value.ToString();
             string typeDropdownValue = selectedRow.Cells["type"].Value.ToString();
             // Get the index of the value
@@ -267,18 +269,30 @@ namespace AppointmentScheduler.Forms
             {
                 throw new ArgumentException("Start time must be before endtime");
             }
-            // Check if the appointment is within business hours (9 AM to 5 PM) EST
-            DateTime businessStart = new DateTime(start.Year, start.Month, start.Day, 9, 0, 0);
-            DateTime businessEnd = new DateTime(start.Year, start.Month, start.Day, 17, 0, 0);
-            if (start < businessStart || end > businessEnd)
+            TimeZoneInfo estZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime estStart = TimeZoneInfo.ConvertTime(start, estZone);
+            DateTime estEnd = TimeZoneInfo.ConvertTime(end, estZone);
+
+            DateTime businessStart = new DateTime(estStart.Year, estStart.Month, estStart.Day, 9, 0, 0);
+            DateTime businessEnd = new DateTime(estStart.Year, estStart.Month, estStart.Day, 17, 0, 0);
+
+            if (estStart < businessStart || estEnd > businessEnd)
             {
-                throw new ArgumentException("Start and end time must be within business hours");
+                throw new ArgumentException("Start and end time must be within business hours (9 AM to 5 PM EST)");
             }
             // Check if the appointment overlaps with existing appointments
             Database db = new Database();
             var dt = db.GetAllAppointments();
             foreach (DataRow row in dt.Rows)
             {
+                int rowAppointmentId = Convert.ToInt32(row["appointmentId"]);
+
+                // Skip the row if it is the same as the current appointment being modified
+                if (currentAppointmentId.HasValue && rowAppointmentId == currentAppointmentId.Value)
+                {
+                    continue;
+                }
+
                 DateTime existingStart = Convert.ToDateTime(row[GlobalConst.AppointmentStart]);
                 DateTime existingEnd = Convert.ToDateTime(row[GlobalConst.AppointmentEnd]);
                 if ((start >= existingStart && start < existingEnd) || (end > existingStart && end <= existingEnd))
