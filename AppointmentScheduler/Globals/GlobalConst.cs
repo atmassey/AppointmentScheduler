@@ -34,8 +34,6 @@ namespace AppointmentScheduler.Globals
         public const string PostalCodeParameter = "@postalCode";
         public const string PhoneParameter = "@phone";
         public static string CurrentUser { get; set; } = string.Empty;
-        // Appointment Duration Constants  
-        public static readonly string[] AppointmentDurations = new string[] { "15", "30", "45", "60" };
         // Appointment Type Constants
         public static readonly string[] AppointmentTypes = new string[] { "Follow-Up", "Consultation", "Presentation", "Scrum" };
         // Report Types  

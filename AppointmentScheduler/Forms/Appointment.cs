@@ -72,13 +72,6 @@ namespace AppointmentScheduler.Forms
                 initializeCustomerDropdown();
             }
         }
-        private void DurationDropdown_DropDown(object sender, EventArgs e)
-        {
-            if (DurationDropdown.Items.Count == 0)
-            {
-                DurationDropdown.Items.AddRange(GlobalConst.AppointmentDurations);
-            }
-        }
         private void TypeDropdown_DropDown(object sender, EventArgs e)
         {
             if (TypeDropdown.Items.Count == 0)

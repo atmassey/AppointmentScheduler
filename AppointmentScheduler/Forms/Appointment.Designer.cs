@@ -41,10 +41,7 @@
             this.TableTitle = new System.Windows.Forms.Label();
             this.TimeSelector = new System.Windows.Forms.DateTimePicker();
             this.DateSelector = new System.Windows.Forms.DateTimePicker();
-            this.DurationDropdown = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.StartLabel = new System.Windows.Forms.Label();
             this.TypeDropdown = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -57,6 +54,8 @@
             this.AddBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
+            this.EndLabel = new System.Windows.Forms.Label();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AppointmentGrid)).BeginInit();
@@ -157,60 +156,33 @@
             // TimeSelector
             // 
             this.TimeSelector.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TimeSelector.Location = new System.Drawing.Point(268, 127);
+            this.TimeSelector.Location = new System.Drawing.Point(185, 121);
             this.TimeSelector.Name = "TimeSelector";
             this.TimeSelector.ShowUpDown = true;
-            this.TimeSelector.Size = new System.Drawing.Size(98, 20);
+            this.TimeSelector.Size = new System.Drawing.Size(182, 20);
             this.TimeSelector.TabIndex = 6;
             // 
             // DateSelector
             // 
             this.DateSelector.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DateSelector.Location = new System.Drawing.Point(143, 127);
+            this.DateSelector.Location = new System.Drawing.Point(18, 121);
             this.DateSelector.Name = "DateSelector";
-            this.DateSelector.Size = new System.Drawing.Size(98, 20);
+            this.DateSelector.Size = new System.Drawing.Size(155, 20);
             this.DateSelector.TabIndex = 7;
             // 
-            // DurationDropdown
+            // StartLabel
             // 
-            this.DurationDropdown.FormattingEnabled = true;
-            this.DurationDropdown.Location = new System.Drawing.Point(18, 126);
-            this.DurationDropdown.Name = "DurationDropdown";
-            this.DurationDropdown.Size = new System.Drawing.Size(98, 21);
-            this.DurationDropdown.TabIndex = 8;
-            this.DurationDropdown.DropDown += new System.EventHandler(this.DurationDropdown_DropDown);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(143, 108);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Date";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(268, 107);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Time";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 108);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Duration";
+            this.StartLabel.AutoSize = true;
+            this.StartLabel.Location = new System.Drawing.Point(18, 105);
+            this.StartLabel.Name = "StartLabel";
+            this.StartLabel.Size = new System.Drawing.Size(29, 13);
+            this.StartLabel.TabIndex = 11;
+            this.StartLabel.Text = "Start";
             // 
             // TypeDropdown
             // 
             this.TypeDropdown.FormattingEnabled = true;
-            this.TypeDropdown.Location = new System.Drawing.Point(18, 170);
+            this.TypeDropdown.Location = new System.Drawing.Point(18, 218);
             this.TypeDropdown.Name = "TypeDropdown";
             this.TypeDropdown.Size = new System.Drawing.Size(349, 21);
             this.TypeDropdown.TabIndex = 12;
@@ -219,7 +191,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 154);
+            this.label6.Location = new System.Drawing.Point(18, 202);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 13;
@@ -228,7 +200,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 208);
+            this.label7.Location = new System.Drawing.Point(15, 256);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(27, 13);
             this.label7.TabIndex = 14;
@@ -236,14 +208,14 @@
             // 
             // TitleField
             // 
-            this.TitleField.Location = new System.Drawing.Point(18, 224);
+            this.TitleField.Location = new System.Drawing.Point(18, 272);
             this.TitleField.Name = "TitleField";
             this.TitleField.Size = new System.Drawing.Size(349, 20);
             this.TitleField.TabIndex = 15;
             // 
             // URLField
             // 
-            this.URLField.Location = new System.Drawing.Point(18, 268);
+            this.URLField.Location = new System.Drawing.Point(18, 316);
             this.URLField.Name = "URLField";
             this.URLField.Size = new System.Drawing.Size(349, 20);
             this.URLField.TabIndex = 16;
@@ -251,7 +223,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 251);
+            this.label8.Location = new System.Drawing.Point(18, 299);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 13);
             this.label8.TabIndex = 17;
@@ -259,7 +231,7 @@
             // 
             // DescriptionField
             // 
-            this.DescriptionField.Location = new System.Drawing.Point(21, 323);
+            this.DescriptionField.Location = new System.Drawing.Point(21, 371);
             this.DescriptionField.Name = "DescriptionField";
             this.DescriptionField.Size = new System.Drawing.Size(345, 96);
             this.DescriptionField.TabIndex = 18;
@@ -268,7 +240,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 304);
+            this.label9.Location = new System.Drawing.Point(21, 352);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 13);
             this.label9.TabIndex = 19;
@@ -276,7 +248,7 @@
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(21, 434);
+            this.SaveBtn.Location = new System.Drawing.Point(21, 482);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 20;
@@ -285,7 +257,7 @@
             // 
             // AddBtn
             // 
-            this.AddBtn.Location = new System.Drawing.Point(156, 434);
+            this.AddBtn.Location = new System.Drawing.Point(156, 482);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(75, 23);
             this.AddBtn.TabIndex = 21;
@@ -294,7 +266,7 @@
             // 
             // DeleteBtn
             // 
-            this.DeleteBtn.Location = new System.Drawing.Point(291, 434);
+            this.DeleteBtn.Location = new System.Drawing.Point(291, 482);
             this.DeleteBtn.Name = "DeleteBtn";
             this.DeleteBtn.Size = new System.Drawing.Size(75, 23);
             this.DeleteBtn.TabIndex = 22;
@@ -305,17 +277,37 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(21, 479);
+            this.label10.Location = new System.Drawing.Point(21, 527);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(277, 13);
             this.label10.TabIndex = 23;
             this.label10.Text = "Business Hours: 9:00AM - 5:00 PM E.S.T, Monday-Friday";
+            // 
+            // EndLabel
+            // 
+            this.EndLabel.AutoSize = true;
+            this.EndLabel.Location = new System.Drawing.Point(17, 154);
+            this.EndLabel.Name = "EndLabel";
+            this.EndLabel.Size = new System.Drawing.Size(26, 13);
+            this.EndLabel.TabIndex = 28;
+            this.EndLabel.Text = "End";
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker2.Location = new System.Drawing.Point(18, 170);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.ShowUpDown = true;
+            this.dateTimePicker2.Size = new System.Drawing.Size(349, 20);
+            this.dateTimePicker2.TabIndex = 24;
             // 
             // Appointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 652);
+            this.Controls.Add(this.EndLabel);
+            this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.AddBtn);
@@ -328,10 +320,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.TypeDropdown);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.DurationDropdown);
+            this.Controls.Add(this.StartLabel);
             this.Controls.Add(this.DateSelector);
             this.Controls.Add(this.TimeSelector);
             this.Controls.Add(this.TableTitle);
@@ -370,10 +359,7 @@
         private System.Windows.Forms.Label TableTitle;
         private System.Windows.Forms.DateTimePicker TimeSelector;
         private System.Windows.Forms.DateTimePicker DateSelector;
-        private System.Windows.Forms.ComboBox DurationDropdown;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label StartLabel;
         private System.Windows.Forms.ComboBox TypeDropdown;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -386,5 +372,7 @@
         private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.Button DeleteBtn;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label EndLabel;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
     }
 }
