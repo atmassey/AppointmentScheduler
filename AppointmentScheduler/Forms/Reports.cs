@@ -104,7 +104,7 @@ namespace AppointmentScheduler.Forms
                 { GlobalConst.AppointmentsByCustomer, () => ReportGrid.DataSource = db.GetAppointmentsByCustomers() }
             };
 
-                // Execute the corresponding action or show an error for an invalid ID
+                // Execute the corresponding action or throw an error for an invalid ID
                 if (reportActions.TryGetValue(selectedReportId, out var action))
                 {
                     action();
