@@ -71,10 +71,14 @@ namespace AppointmentScheduler.Forms
         }
         private void ReportDropdown_DropDown(object sender, EventArgs e)
         {
-            // Populate the report dropdown with report types
-            ReportDropdown.DataSource = GetReportTypes();
-            ReportDropdown.DisplayMember = "Report Type";
-            ReportDropdown.ValueMember = "Report ID";
+            // Check if the report dropdown is empty before populating it
+            if (ReportDropdown.Items.Count == 0)
+            {
+                // Populate the report dropdown with report types
+                ReportDropdown.DataSource = GetReportTypes();
+                ReportDropdown.DisplayMember = "Report Type";
+                ReportDropdown.ValueMember = "Report ID";
+            }
         }
     }
 }

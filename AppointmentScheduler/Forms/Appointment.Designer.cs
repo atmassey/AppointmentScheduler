@@ -178,6 +178,7 @@
             this.DurationDropdown.Name = "DurationDropdown";
             this.DurationDropdown.Size = new System.Drawing.Size(98, 21);
             this.DurationDropdown.TabIndex = 8;
+            this.DurationDropdown.DropDown += new System.EventHandler(this.DurationDropdown_DropDown);
             // 
             // label3
             // 
@@ -213,6 +214,7 @@
             this.TypeDropdown.Name = "TypeDropdown";
             this.TypeDropdown.Size = new System.Drawing.Size(349, 21);
             this.TypeDropdown.TabIndex = 12;
+            this.TypeDropdown.DropDown += new System.EventHandler(this.TypeDropdown_DropDown);
             // 
             // label6
             // 

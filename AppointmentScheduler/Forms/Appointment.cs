@@ -62,6 +62,7 @@ namespace AppointmentScheduler.Forms
             Database db = new Database();
             var dt = db.GetAllAppointments();
             AppointmentGrid.DataSource = dt;
+            AppointmentGrid.ClearSelection();
         }
         private void CustomerDropdown_DropDown(object sender, EventArgs e)
         {
@@ -69,6 +70,20 @@ namespace AppointmentScheduler.Forms
             {
                 // Populate the customer dropdown with customer names
                 initializeCustomerDropdown();
+            }
+        }
+        private void DurationDropdown_DropDown(object sender, EventArgs e)
+        {
+            if (DurationDropdown.Items.Count == 0)
+            {
+                DurationDropdown.Items.AddRange(GlobalConst.AppointmentDurations);
+            }
+        }
+        private void TypeDropdown_DropDown(object sender, EventArgs e)
+        {
+            if (TypeDropdown.Items.Count == 0)
+            {
+                TypeDropdown.Items.AddRange(GlobalConst.AppointmentTypes);
             }
         }
         private void checkAppointmentTime(DateTime start, DateTime end)
