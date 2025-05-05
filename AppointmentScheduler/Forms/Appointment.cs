@@ -79,6 +79,43 @@ namespace AppointmentScheduler.Forms
                 TypeDropdown.Items.AddRange(GlobalConst.AppointmentTypes);
             }
         }
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            if (AppointmentGrid.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an appointment to update.");
+                return;
+            }
+        }
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            if (AppointmentGrid.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an appointment to delete.");
+                return;
+            }
+        }
+        private void AddBtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TitleField.Text) || string.IsNullOrEmpty(DescriptionField.Text) || string.IsNullOrEmpty(TypeDropdown.Text) || string.IsNullOrEmpty(CustomerDropdown.Text))
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+        }
+        private void AppointmentGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Initialize the dropdown lists if they are not already populated
+            if (TypeDropdown.Items.Count == 0)
+            {
+                TypeDropdown.Items.AddRange(GlobalConst.AppointmentTypes);
+            }
+            if (CustomerDropdown.Items.Count == 0)
+            {
+                // Populate the customer dropdown with customer names
+                initializeCustomerDropdown();
+            }
+        }
         private void checkAppointmentTime(DateTime start, DateTime end)
         {
             // Convert the start and end times to UTC

@@ -73,8 +73,8 @@
             // mainToolStripMenuItem
             // 
             this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
-            this.mainToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.mainToolStripMenuItem.Text = "Main";
+            this.mainToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.mainToolStripMenuItem.Text = "Calendar";
             this.mainToolStripMenuItem.Click += new System.EventHandler(this.mainToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
