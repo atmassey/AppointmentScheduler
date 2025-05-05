@@ -115,7 +115,7 @@
             this.ReportDropdown.Size = new System.Drawing.Size(403, 21);
             this.ReportDropdown.TabIndex = 3;
             this.ReportDropdown.DropDown += new System.EventHandler(this.ReportDropdown_DropDown);
-            this.ReportDropdown.SelectedIndexChanged += new System.EventHandler(this.ReportDropdown_SelectionIndexChanged);
+            this.ReportDropdown.SelectionChangeCommitted += new System.EventHandler(this.ReportDropdown_SelectionChangeCommitted);
             // 
             // ReportLabel
             // 

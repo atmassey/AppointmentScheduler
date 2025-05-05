@@ -77,10 +77,46 @@ namespace AppointmentScheduler.Forms
             if (ReportDropdown.DataSource == null)
             {
                 // Populate the report dropdown with report types
-                ReportDropdown.DataSource = GetReportTypes();
                 ReportDropdown.DisplayMember = "Report Type";
                 ReportDropdown.ValueMember = "Report ID";
+                ReportDropdown.DataSource = GetReportTypes();
+                foreach (DataRowView row in ReportDropdown.Items)
+                {
+                    Console.WriteLine(row["Report Type"]);
+                    Console.WriteLine(row["Report ID"]);
+                }
             }
         }
+        private void ReportDropdown_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            // Check the datasoucre of the dropdown
+            if (ReportDropdown.DataSource == null)
+            {
+                return;
+            }
+            int selectedReportId = (int)ReportDropdown.SelectedValue;
+            Database db = new Database();
+            DataTable dt = new DataTable();
+            // Get the selected report type
+            switch (selectedReportId)
+            {
+                case GlobalConst.AppointmentTypeByMonth:
+                    dt = db.GetAppointmentCountByMonth();
+                    ReportGrid.DataSource = dt;
+                    break;
+                case GlobalConst.UserSchedule:
+                    dt = db.GetScheduleForUsers();
+                    ReportGrid.DataSource = dt;
+                    break;
+                case GlobalConst.AppointmentsByCustomer:
+                    dt = db.GetAppointmentsByCustomers();
+                    ReportGrid.DataSource = dt;
+                    break;
+                default:
+                    MessageBox.Show("Invalid report type selected.");
+                    break;
+            }
+            Console.WriteLine("Selected Report ID: " + selectedReportId);
+        }
     }
- }
+}
