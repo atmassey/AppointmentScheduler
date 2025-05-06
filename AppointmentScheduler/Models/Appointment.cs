@@ -47,7 +47,7 @@ namespace AppointmentScheduler.Models
             {
                 if (_location == null)
                 {
-                    _location = "Bowling Green, KY";
+                    _location = "Phoenix, Arizona";
                 }
                 return _location;
             }
