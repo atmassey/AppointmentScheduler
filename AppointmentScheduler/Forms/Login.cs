@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,33 @@ namespace AppointmentScheduler.Forms
             {
                 Reminder reminder = new Reminder();
                 reminder.Show();
+            }
+        }
+        public void Globalization()
+        {
+            switch (RegionInfo.CurrentRegion.TwoLetterISORegionName)
+            {
+                case "US":
+                    // English localization
+                    this.Text = "Appointment Scheduler - Login";
+                    LoginUsername.Text = "Username";
+                    LoginPassword.Text = "Password";
+                    LoginBtn.Text = "Login";
+                    break;
+                case "TR":
+                    // Turkish localization
+                    this.Text = "Randevu Planlayıcı - Giriş";
+                    LoginUsername.Text = "Kullanıcı Adı";
+                    LoginPassword.Text = "Şifre";
+                    LoginBtn.Text = "Giriş Yap";
+                    break;
+                default:
+                    // Default to English
+                    this.Text = "Appointment Scheduler - Login";
+                    LoginUsername.Text = "Username";
+                    LoginPassword.Text = "Password";
+                    LoginBtn.Text = "Login";
+                    break;
             }
         }
     }
