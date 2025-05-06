@@ -108,6 +108,7 @@ namespace AppointmentScheduler.Forms
                 if (reportActions.TryGetValue(selectedReportId, out var action))
                 {
                     action();
+                    ReportGrid.ClearSelection();
                 }
                 else
                 {
