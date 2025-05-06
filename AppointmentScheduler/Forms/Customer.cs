@@ -189,7 +189,7 @@ namespace AppointmentScheduler.Forms
                 // Check if all fields are filled
                 if (string.IsNullOrWhiteSpace(CustomerName.Text) || string.IsNullOrWhiteSpace(Address.Text) || string.IsNullOrWhiteSpace(Phone.Text))
                 {
-                    MessageBox.Show("Please enter customer name, phone number, and address to add them.");
+                    MessageBox.Show("Please enter customer name, phone number, and address to add a customer.");
                     return;
                 }
                 //Prompt the user to confirm the add action
