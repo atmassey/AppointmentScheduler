@@ -19,6 +19,7 @@ namespace AppointmentScheduler.Forms
             InitializeComponent();
         }
         private int? currentAppointmentId = null; // Nullable int to hold the appointment ID
+        private int? currentCustomerId = null; // Nullable string to hold the customer name
         private void initializeCustomerDropdown()
         {
             // Populate the customer dropdown with customer names
@@ -103,7 +104,7 @@ namespace AppointmentScheduler.Forms
                 // Set the date of the start and end times
                 start = new DateTime(date.Year, date.Month, date.Day, start.Hour, start.Minute, start.Second);
                 end = new DateTime(date.Year, date.Month, date.Day, end.Hour, end.Minute, end.Second);
-                // Convert to UTC
+                currentCustomerId = Convert.ToInt32(CustomerDropdown.SelectedValue);
                 // Convert the start and end times to UTC
                 TimeZoneInfo localZone = TimeZoneInfo.Local;
                 DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(start, localZone);
@@ -208,7 +209,8 @@ namespace AppointmentScheduler.Forms
             // Set the date of the start and end times
             start = new DateTime(date.Year, date.Month, date.Day, start.Hour, start.Minute, start.Second);
             end = new DateTime(date.Year, date.Month, date.Day, end.Hour, end.Minute, end.Second);
-            // Convert to UTC
+            // Update customer ID
+            currentCustomerId = Convert.ToInt32(CustomerDropdown.SelectedValue);
             // Convert the start and end times to UTC
             TimeZoneInfo localZone = TimeZoneInfo.Local;
             DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(start, localZone);
@@ -282,6 +284,7 @@ namespace AppointmentScheduler.Forms
             DataGridViewRow selectedRow = AppointmentGrid.Rows[e.RowIndex];
             TitleField.Text = selectedRow.Cells["title"].Value.ToString();
             currentAppointmentId = Convert.ToInt32(selectedRow.Cells["appointmentId"].Value);
+            currentCustomerId = Convert.ToInt32(selectedRow.Cells["customerId"].Value);
             DescriptionField.Text = selectedRow.Cells["description"].Value.ToString();
             DateSelector.Value = dateTime;
             string typeDropdownValue = selectedRow.Cells["type"].Value.ToString();
@@ -322,16 +325,18 @@ namespace AppointmentScheduler.Forms
             foreach (DataRow row in dt.Rows)
             {
                 int rowAppointmentId = Convert.ToInt32(row["appointmentId"]);
+                int rowCustomerId = Convert.ToInt32(row["customerId"]);
 
                 // Skip the row if it is the same as the current appointment being modified
-                if (currentAppointmentId.HasValue && rowAppointmentId == currentAppointmentId.Value)
+                if (currentAppointmentId.HasValue && rowAppointmentId == currentAppointmentId.Value && currentCustomerId == rowCustomerId)
                 {
                     continue;
                 }
 
                 DateTime existingStart = Convert.ToDateTime(row[GlobalConst.AppointmentStart]);
                 DateTime existingEnd = Convert.ToDateTime(row[GlobalConst.AppointmentEnd]);
-                if ((start >= existingStart && start < existingEnd) || (end > existingStart && end <= existingEnd))
+                // Check if the new appointment overlaps with existing appointments
+                if ((start >= existingStart && start < existingEnd) || (end > existingStart && end <= existingEnd) || (start == existingStart && end == existingEnd))
                 {
                     throw new ArgumentException("Appointment can not overlap other appointments");
                 }
