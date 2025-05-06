@@ -153,27 +153,38 @@ namespace AppointmentScheduler.Forms
         }
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            //Prompt the user to confirm the add action
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this appointment?", "Confirm Delete", MessageBoxButtons.YesNo);
-            if (result != DialogResult.Yes)
+            try
             {
-                return;
+                //Prompt the user to confirm the add action
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this appointment?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+                if (AppointmentGrid.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Please select an appointment to delete.");
+                    return;
+                }
+                // Get the selected appointment ID
+                int appointmentId = Convert.ToInt32(AppointmentGrid.SelectedRows[0].Cells["appointmentId"].Value);
+                // Delete the appointment from the database
+                Database db = new Database();
+                db.RemoveAppointment(appointmentId);
+                // Refresh the appointment grid
+                var dt = db.GetAllAppointments();
+                AppointmentGrid.DataSource = dt;
+                // Clear the fields
+                ClearFields();
             }
-            if (AppointmentGrid.SelectedRows.Count == 0)
+            catch (DatabaseException ex)
             {
-                MessageBox.Show("Please select an appointment to delete.");
-                return;
+                MessageBox.Show("Database error: " + ex.Message, GlobalConst.DbError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // Get the selected appointment ID
-            int appointmentId = Convert.ToInt32(AppointmentGrid.SelectedRows[0].Cells["appointmentId"].Value);
-            // Delete the appointment from the database
-            Database db = new Database();
-            db.RemoveAppointment(appointmentId);
-            // Refresh the appointment grid
-            var dt = db.GetAllAppointments();
-            AppointmentGrid.DataSource = dt;
-            // Clear the fields
-            ClearFields();
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while deleting the appointment: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void AddBtn_Click(object sender, EventArgs e)
         {
