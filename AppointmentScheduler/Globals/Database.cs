@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppointmentScheduler.Models;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.BC;
 
 namespace AppointmentScheduler.Globals
 {
@@ -138,6 +139,12 @@ namespace AppointmentScheduler.Globals
                 appointment a
             JOIN 
                 customer c ON a.customerId = c.customerId";
+        private const string GetPendingAppointment =
+            @"SELECT a.start, c.customerName 
+             FROM appointment a
+             JOIN customer c ON a.customerId = c.customerId
+             WHERE a.userId=@userId AND a.start>=@start AND a.start<=@range
+             ORDER BY a.start";
         public static string ConnectionString
         {
             get
@@ -888,6 +895,38 @@ namespace AppointmentScheduler.Globals
             catch (Exception ex)
             {
                 throw new DatabaseException("Error retrieving appointments by customer: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed even if an error occurs
+                if (conn != null && conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public DataTable GetUpcomingAppointments(int userId, DateTime start, DateTime range)
+        {
+            MySqlConnection conn = null;
+            try
+            {
+                conn = getConnection();
+                var parameters = new List<MySqlParameter>
+                {
+                    new MySqlParameter("@userId", userId),
+                    new MySqlParameter("@start", start),
+                    new MySqlParameter("@range", range)
+                };
+                MySqlCommand cmd = newQuery(conn, GetPendingAppointment, parameters);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error retrieving upcoming appointments: " + ex.Message);
             }
             finally
             {

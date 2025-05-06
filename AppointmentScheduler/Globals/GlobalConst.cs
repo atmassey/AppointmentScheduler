@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,6 @@ namespace AppointmentScheduler.Globals
         public const int AppointmentTypeByMonth = 0;
         public const int UserSchedule = 1;
         public const int AppointmentsByCustomer = 2;
-
+        public static DataTable Reminder { get; set; } = new DataTable();
     }
 }

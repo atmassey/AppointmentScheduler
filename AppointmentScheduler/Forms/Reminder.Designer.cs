@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ReminderGrid = new System.Windows.Forms.DataGridView();
             this.ReminderTitle = new System.Windows.Forms.Label();
             this.DismissBtn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReminderGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // ReminderGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 90);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 275);
-            this.dataGridView1.TabIndex = 0;
+            this.ReminderGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ReminderGrid.Location = new System.Drawing.Point(12, 90);
+            this.ReminderGrid.Name = "ReminderGrid";
+            this.ReminderGrid.Size = new System.Drawing.Size(776, 275);
+            this.ReminderGrid.TabIndex = 0;
             // 
             // ReminderTitle
             // 
@@ -60,6 +60,7 @@
             this.DismissBtn.TabIndex = 2;
             this.DismissBtn.Text = "Dismiss";
             this.DismissBtn.UseVisualStyleBackColor = true;
+            this.DismissBtn.Click += new System.EventHandler(this.DismissBtn_Click);
             // 
             // Reminder
             // 
@@ -68,10 +69,11 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.DismissBtn);
             this.Controls.Add(this.ReminderTitle);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.ReminderGrid);
             this.Name = "Reminder";
             this.Text = "Notification";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Reminder_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.ReminderGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -79,7 +81,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView ReminderGrid;
         private System.Windows.Forms.Label ReminderTitle;
         private System.Windows.Forms.Button DismissBtn;
     }

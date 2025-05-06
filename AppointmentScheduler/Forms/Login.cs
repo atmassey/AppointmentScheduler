@@ -41,6 +41,8 @@ namespace AppointmentScheduler.Forms
                 logger.Info($"User {username} logged in successfully.");
                 GlobalConst.CurrentUser = username;
                 GlobalConst.CurrentUserId = db.GetUserId(username);
+                // Check for upcoming appointments
+                CheckUpcomingAppointments();
                 Main main = new Main();
                 main.Show();
                 this.Hide();
@@ -60,7 +62,21 @@ namespace AppointmentScheduler.Forms
         }
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-                Application.Exit();
+            Application.Exit();
+        }
+        private void CheckUpcomingAppointments()
+        {
+            int userId = GlobalConst.CurrentUserId;
+            DateTime currentDateTime = DateTime.UtcNow;
+            DateTime nextFifteenMins = currentDateTime.AddMinutes(15);
+            Database db = new Database();
+            DataTable dt = db.GetUpcomingAppointments(userId, currentDateTime, nextFifteenMins);
+            GlobalConst.Reminder = dt;
+            if (dt.Rows.Count > 0)
+            {
+                Reminder reminder = new Reminder();
+                reminder.Show();
+            }
         }
     }
 }
