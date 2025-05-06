@@ -23,6 +23,8 @@ namespace AppointmentScheduler.Forms
         {
             Console.WriteLine("Login form loaded.");
             Location.Text = localZone.StandardName;
+            // Set localization based on the region
+            Globalization();
         }
         private void LoginBtn_Click(object sender, EventArgs e)
         {
@@ -50,15 +52,36 @@ namespace AppointmentScheduler.Forms
             }
             catch (LoggerException ex)
             {
-                MessageBox.Show("Failed to log message: " + ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (GlobalConst.IsTurkish)
+                {
+                    MessageBox.Show("Giriş işlemi sırasında bir hata oluştu: " + ex.Message, GlobalConst.LoggerErrorTurk, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("An error occurred while logging to a file: " + ex.Message, GlobalConst.LoggerError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (LoginException ex)
             {
-                MessageBox.Show(ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (GlobalConst.IsTurkish)
+                {
+                    MessageBox.Show("Giriş işlemi sırasında bir hata oluştu: " + ex.Message, GlobalConst.LoginErrorTurk, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("An error occurred while logging in: " + ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while logging in " + ex.Message, GlobalConst.LoginError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (GlobalConst.IsTurkish)
+                {
+                    MessageBox.Show("Giriş işlemi sırasında bir hata oluştu: " + ex.Message, GlobalConst.GenericErrorTurk, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("An error occurred while logging in: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
@@ -84,17 +107,22 @@ namespace AppointmentScheduler.Forms
             switch (RegionInfo.CurrentRegion.TwoLetterISORegionName)
             {
                 case "US":
+                    // Set English localization
+                    GlobalConst.IsTurkish = false;
                     // English localization
                     this.Text = "Appointment Scheduler - Login";
-                    LoginUsername.Text = "Username";
-                    LoginPassword.Text = "Password";
+                    UsernameLabel.Text = "Username";
+                    PasswordLabel.Text = "Password";
                     LoginBtn.Text = "Login";
                     break;
                 case "TR":
+                    // Set Turkish localization
+                    GlobalConst.IsTurkish = true;
                     // Turkish localization
                     this.Text = "Randevu Planlayıcı - Giriş";
-                    LoginUsername.Text = "Kullanıcı Adı";
-                    LoginPassword.Text = "Şifre";
+                    UsernameLabel.Text = "Kullanıcı Adı";
+                    PasswordLabel.Text = "Şifre";
+                    LocationLabel.Text = "Konum: ";
                     LoginBtn.Text = "Giriş Yap";
                     break;
                 default:

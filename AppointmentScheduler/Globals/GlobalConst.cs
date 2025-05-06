@@ -11,9 +11,14 @@ namespace AppointmentScheduler.Globals
     {
         // Constants for errors  
         public const string LoginError = "Login Error";
+        public const string LoginErrorTurk = "Giriş Hatası";
         public const string DbError = "Database Error";
+        public const string DbErrorTurk = "Veritabanı Hatası";
         public const string ArgError = "Argument Error";
         public const string GenericError = "Generic Error";
+        public const string GenericErrorTurk = "Genel Hata";
+        public const string LoggerError = "Logger Error";
+        public const string LoggerErrorTurk = "Günlük Hatası";
         // Constants for database queries  
         public const string CustomerName = "customerName";
         public const string CustomerId = "customerId";
@@ -43,5 +48,6 @@ namespace AppointmentScheduler.Globals
         public const int UserSchedule = 1;
         public const int AppointmentsByCustomer = 2;
         public static DataTable Reminder { get; set; } = new DataTable();
+        public static bool IsTurkish { get; set; } = false;
     }
 }

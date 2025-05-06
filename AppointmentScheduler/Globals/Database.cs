@@ -194,10 +194,18 @@ namespace AppointmentScheduler.Globals
                         return;
                     }
                 }
+                if (GlobalConst.IsTurkish)
+                {
+                    throw new LoginException("Kullanıcı adı veya şifre geçersiz.");
+                }
                 throw new LoginException("Invalid username or password.");
             }
             catch (Exception ex)
             {
+                if (GlobalConst.IsTurkish)
+                {
+                    throw new LoginException("Giriş başarısız");
+                }
                 throw new LoginException("Login failed: " + ex.Message);
             }
             finally
