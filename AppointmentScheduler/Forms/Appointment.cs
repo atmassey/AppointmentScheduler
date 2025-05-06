@@ -277,11 +277,13 @@ namespace AppointmentScheduler.Forms
             DateTime endUTC = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["end"].Value);
             DateTime startLocal = startUTC.ToLocalTime();
             DateTime endLocal = endUTC.ToLocalTime();
+            DateTime dateTime = startLocal.Date;
             // Display the selected information
             DataGridViewRow selectedRow = AppointmentGrid.Rows[e.RowIndex];
             TitleField.Text = selectedRow.Cells["title"].Value.ToString();
             currentAppointmentId = Convert.ToInt32(selectedRow.Cells["appointmentId"].Value);
             DescriptionField.Text = selectedRow.Cells["description"].Value.ToString();
+            DateSelector.Value = dateTime;
             string typeDropdownValue = selectedRow.Cells["type"].Value.ToString();
             // Get the index of the value
             int index = TypeDropdown.FindString(typeDropdownValue);
