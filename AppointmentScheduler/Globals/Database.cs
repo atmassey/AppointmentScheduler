@@ -140,7 +140,7 @@ namespace AppointmentScheduler.Globals
             JOIN 
                 customer c ON a.customerId = c.customerId";
         private const string GetPendingAppointment =
-            @"SELECT a.start, c.customerName 
+            @"SELECT c.customerName, a.start, a.end 
              FROM appointment a
              JOIN customer c ON a.customerId = c.customerId
              WHERE a.userId=@userId AND a.start>=@start AND a.start<=@range
