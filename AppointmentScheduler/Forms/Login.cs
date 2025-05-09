@@ -97,9 +97,16 @@ namespace AppointmentScheduler.Forms
             GlobalConst.Reminder = dt;
             if (dt.Rows.Count > 0)
             {
+                if (dt.Rows.Count == 1)
+                {
+                    MessageBox.Show("You have an upcoming appointment in the next 15 minutes.", "Upcoming Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("You have multiple upcoming appointments in the next 15 minutes.", "Upcoming Appointments", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 Reminder reminder = new Reminder();
                 reminder.Show();
-                MessageBox.Show("You have upcoming appointments in the next 15 minutes.", "Upcoming Appointments", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         public void Globalization()
