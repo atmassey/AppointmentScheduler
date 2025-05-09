@@ -62,10 +62,30 @@ namespace AppointmentScheduler.Forms
             CurrentUser.Text = "Current User: " + GlobalConst.CurrentUser;
             // Initialize the datagrid
             ComponentHelper.InitializeDataGrid(AppointmentGrid);
+            UpdateAppointmentGrid();
+        }
+        private void UpdateAppointmentGrid()
+        {
+            // Refresh the appointment grid
             Database db = new Database();
             var dt = db.GetAllAppointments();
             AppointmentGrid.DataSource = dt;
+            // Change times to local time
+            ChangeAppointmentTimesToLocalTime();
             AppointmentGrid.ClearSelection();
+        }
+        private void ChangeAppointmentTimesToLocalTime()
+        {
+            // Convert the appointment times to local time
+            foreach (DataGridViewRow row in AppointmentGrid.Rows)
+            {
+                DateTime startUTC = Convert.ToDateTime(row.Cells["start"].Value);
+                DateTime endUTC = Convert.ToDateTime(row.Cells["end"].Value);
+                DateTime startLocal = startUTC.ToLocalTime();
+                DateTime endLocal = endUTC.ToLocalTime();
+                row.Cells["start"].Value = startLocal;
+                row.Cells["end"].Value = endLocal;
+            }
         }
         private void CustomerDropdown_DropDown(object sender, EventArgs e)
         {
@@ -131,9 +151,7 @@ namespace AppointmentScheduler.Forms
                 // Update the appointment in the database
                 db.UpdateAppointment(appointment);
                 // Refresh the appointment grid
-                var dt = db.GetAllAppointments();
-                AppointmentGrid.DataSource = dt;
-                AppointmentGrid.ClearSelection();
+                UpdateAppointmentGrid();
                 // Clear the fields
                 ClearFields();
                 // Show success message
@@ -173,8 +191,7 @@ namespace AppointmentScheduler.Forms
                 Database db = new Database();
                 db.RemoveAppointment(appointmentId);
                 // Refresh the appointment grid
-                var dt = db.GetAllAppointments();
-                AppointmentGrid.DataSource = dt;
+                UpdateAppointmentGrid();
                 // Clear the fields
                 ClearFields();
             }
@@ -225,7 +242,7 @@ namespace AppointmentScheduler.Forms
                 End = utcEnd,
                 customerId = Convert.ToInt32(CustomerDropdown.SelectedValue),
                 Url = URLField.Text,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 CreatedBy = GlobalConst.CurrentUser,
                 LastUpdatedBy = GlobalConst.CurrentUser,
                 userId = GlobalConst.CurrentUserId,
@@ -236,9 +253,7 @@ namespace AppointmentScheduler.Forms
             Database db = new Database();
             db.InsertAppointment(appointment);
             // Refresh the appointment grid
-            var dt = db.GetAllAppointments();
-            AppointmentGrid.DataSource = dt;
-            AppointmentGrid.ClearSelection();
+            UpdateAppointmentGrid();
             // Clear the fields
             ClearFields();
             // Show success message
@@ -274,12 +289,10 @@ namespace AppointmentScheduler.Forms
                 // Populate the customer dropdown with customer names
                 initializeCustomerDropdown();
             }
-            // Get the local times
-            DateTime startUTC = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["start"].Value);
-            DateTime endUTC = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["end"].Value);
-            DateTime startLocal = startUTC.ToLocalTime();
-            DateTime endLocal = endUTC.ToLocalTime();
-            DateTime dateTime = startLocal.Date;
+            // Get the times
+            DateTime start = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["start"].Value);
+            DateTime end = Convert.ToDateTime(AppointmentGrid.Rows[e.RowIndex].Cells["end"].Value);
+            DateTime dateTime = start.Date;
             // Display the selected information
             DataGridViewRow selectedRow = AppointmentGrid.Rows[e.RowIndex];
             TitleField.Text = selectedRow.Cells["title"].Value.ToString();
@@ -293,8 +306,8 @@ namespace AppointmentScheduler.Forms
             // Set the selected index
             TypeDropdown.SelectedIndex = index;
             // Populate the start and end time fields with the local times
-            StartTime.Value = startLocal;
-            EndTime.Value = endLocal;
+            StartTime.Value = start;
+            EndTime.Value = end;
             // Set the selected customer ID
             int customerId = Convert.ToInt32(selectedRow.Cells["customerId"].Value);
             CustomerDropdown.SelectedValue = customerId;

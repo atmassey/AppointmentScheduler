@@ -100,6 +100,7 @@ namespace AppointmentScheduler.Forms
             {
                 Reminder reminder = new Reminder();
                 reminder.Show();
+                MessageBox.Show("You have upcoming appointments in the next 15 minutes.", "Upcoming Appointments", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         public void Globalization()
