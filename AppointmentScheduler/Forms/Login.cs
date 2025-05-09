@@ -21,7 +21,6 @@ namespace AppointmentScheduler.Forms
         }
         private void Login_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("Login form loaded.");
             Location.Text = localZone.StandardName;
             // Set localization based on the region
             Globalization();
@@ -105,6 +104,7 @@ namespace AppointmentScheduler.Forms
         }
         public void Globalization()
         {
+            // Set localization based on the region info
             switch (RegionInfo.CurrentRegion.TwoLetterISORegionName)
             {
                 case "US":
@@ -112,18 +112,22 @@ namespace AppointmentScheduler.Forms
                     GlobalConst.IsTurkish = false;
                     // English localization
                     this.Text = "Appointment Scheduler - Login";
+                    TitleLabel.Text = "Appointment Scheduler - Login";
                     UsernameLabel.Text = "Username";
                     PasswordLabel.Text = "Password";
                     LoginBtn.Text = "Login";
+                    LocationLabel.Text = "Location: ";
+                    Location.Text = localZone.StandardName;
                     break;
                 case "TR":
-                    // Set Turkish localization
                     GlobalConst.IsTurkish = true;
                     // Turkish localization
                     this.Text = "Randevu Planlayıcı - Giriş";
+                    TitleLabel.Text = "Randevu Planlayıcı - Giriş";
                     UsernameLabel.Text = "Kullanıcı Adı";
                     PasswordLabel.Text = "Şifre";
                     LocationLabel.Text = "Konum: ";
+                    Location.Text = $"UTC{localZone.BaseUtcOffset.ToString()}";
                     LoginBtn.Text = "Giriş Yap";
                     break;
                 default:
@@ -133,6 +137,46 @@ namespace AppointmentScheduler.Forms
                     LoginPassword.Text = "Password";
                     LoginBtn.Text = "Login";
                     break;
+            }
+        }
+        // Manual globalization for language selection 
+        private void ManualGlobalization()
+        {
+            if (GlobalConst.IsTurkish)
+            {
+                this.Text = "Randevu Planlayıcı - Giriş";
+                TitleLabel.Text = "Randevu Planlayıcı - Giriş";
+                UsernameLabel.Text = "Kullanıcı Adı";
+                PasswordLabel.Text = "Şifre";
+                LocationLabel.Text = "Konum: ";
+                LoginBtn.Text = "Giriş Yap";
+                Location.Text = $"UTC{localZone.BaseUtcOffset.ToString()}";
+            }
+            else
+            {
+                this.Text = "Appointment Scheduler - Login";
+                TitleLabel.Text = "Appointment Scheduler - Login";
+                UsernameLabel.Text = "Username";
+                PasswordLabel.Text = "Password";
+                LocationLabel.Text = "Location: ";
+                LoginBtn.Text = "Login";
+                Location.Text = localZone.StandardName;
+            }
+        }
+        private void EnglishBtn_Click(object sender, EventArgs e)
+        {
+            if (EnglishBtn.Checked)
+            {
+                GlobalConst.IsTurkish = false;
+                ManualGlobalization();
+            }
+        }
+        private void TurkishBtn_Click(object sender, EventArgs e)
+        {
+            if (TurkishBtn.Checked)
+            {
+                GlobalConst.IsTurkish = true;
+                ManualGlobalization();
             }
         }
     }
