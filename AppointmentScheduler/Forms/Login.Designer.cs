@@ -36,6 +36,8 @@
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
+            this.EnglishBtn = new System.Windows.Forms.RadioButton();
+            this.TurkishBtn = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // LocationLabel
@@ -109,11 +111,37 @@
             this.TitleLabel.TabIndex = 7;
             this.TitleLabel.Text = "Appointment Scheduler Login";
             // 
+            // EnglishBtn
+            // 
+            this.EnglishBtn.AutoSize = true;
+            this.EnglishBtn.Location = new System.Drawing.Point(15, 318);
+            this.EnglishBtn.Name = "EnglishBtn";
+            this.EnglishBtn.Size = new System.Drawing.Size(59, 17);
+            this.EnglishBtn.TabIndex = 8;
+            this.EnglishBtn.TabStop = true;
+            this.EnglishBtn.Text = "English";
+            this.EnglishBtn.UseVisualStyleBackColor = true;
+            this.EnglishBtn.Click += new System.EventHandler(this.EnglishBtn_Click);
+            // 
+            // TurkishBtn
+            // 
+            this.TurkishBtn.AutoSize = true;
+            this.TurkishBtn.Location = new System.Drawing.Point(81, 318);
+            this.TurkishBtn.Name = "TurkishBtn";
+            this.TurkishBtn.Size = new System.Drawing.Size(60, 17);
+            this.TurkishBtn.TabIndex = 9;
+            this.TurkishBtn.TabStop = true;
+            this.TurkishBtn.Text = "Turkish";
+            this.TurkishBtn.UseVisualStyleBackColor = true;
+            this.TurkishBtn.Click += new System.EventHandler(this.TurkishBtn_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 347);
+            this.Controls.Add(this.TurkishBtn);
+            this.Controls.Add(this.EnglishBtn);
             this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.UsernameLabel);
@@ -141,5 +169,7 @@
         private System.Windows.Forms.Label UsernameLabel;
         private System.Windows.Forms.Label PasswordLabel;
         private System.Windows.Forms.Label TitleLabel;
+        private System.Windows.Forms.RadioButton EnglishBtn;
+        private System.Windows.Forms.RadioButton TurkishBtn;
     }
 }

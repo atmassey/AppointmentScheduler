@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppointmentScheduler.Globals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,19 @@ namespace AppointmentScheduler
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.Login());
+            try {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Forms.Login());
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("An invalid operation error occurred: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
