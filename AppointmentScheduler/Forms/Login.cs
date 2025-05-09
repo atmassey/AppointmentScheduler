@@ -110,6 +110,8 @@ namespace AppointmentScheduler.Forms
                 case "US":
                     // Set English localization
                     GlobalConst.IsTurkish = false;
+                    EnglishBtn.Checked = true;
+                    TurkishBtn.Checked = false;
                     // English localization
                     this.Text = "Appointment Scheduler - Login";
                     TitleLabel.Text = "Appointment Scheduler - Login";
@@ -121,6 +123,8 @@ namespace AppointmentScheduler.Forms
                     break;
                 case "TR":
                     GlobalConst.IsTurkish = true;
+                    EnglishBtn.Checked = false;
+                    TurkishBtn.Checked = true;
                     // Turkish localization
                     this.Text = "Randevu Planlayıcı - Giriş";
                     TitleLabel.Text = "Randevu Planlayıcı - Giriş";
