@@ -34,7 +34,14 @@ namespace AppointmentScheduler.Forms
                 string password = LoginPassword.Text;
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
-                    MessageBox.Show("Please enter a username and password.");
+                    if (GlobalConst.IsTurkish)
+                    {
+                        MessageBox.Show("Lütfen bir kullanıcı adı ve şifre girin.", GlobalConst.GenericErrorTurk, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a username and password.", GlobalConst.GenericError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     return;
                 }
                 Database db = new Database();
